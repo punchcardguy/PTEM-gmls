@@ -15,8 +15,8 @@ with(instance_create(x,y, obj_custom_object))
 	sprite_set_speed(global.lunge,60,60)
 	global.lap3 = sprite_add("sprites/spr_lap3.png", 1, false, false, 123, 0);
 	global.lap4 = sprite_add("sprites/spr_lap4.png", 1, false, false, 123, 0);
-	global.lap3song = audio_create_stream("music/mu_lap3.ogg");
-	global.lap4song = audio_create_stream("music/mu_lap4.ogg");
+	global.mu_lap3 = audio_create_stream("music/mu_lap3.ogg");
+	global.mu_lap4 = audio_create_stream("music/mu_lap4.ogg");
 	step_event = @'
 	with(epicboogaloo)
 	{
@@ -88,15 +88,15 @@ with(instance_create(x,y, obj_custom_object))
 			}
 			with(obj_music)
 			{
-				if(!audio_is_playing(global.lap3song) && global.laps == 1)
+				if(!audio_is_playing(global.mu_lap3) && global.laps == 1)
 				{
 					audio_stop_sound(musicID);
-					musicID = scr_music(global.lap3song);
+					musicID = scr_music(global.mu_lap3);
 				}
-				if(!audio_is_playing(global.lap4song) && global.laps >= 2)
+				if(!audio_is_playing(global.mu_lap4) && global.laps >= 2)
 				{
 					audio_stop_sound(musicID);
-					musicID = scr_music(global.lap4song);
+					musicID = scr_music(global.mu_lap4);
 				}
 			}
 		}
