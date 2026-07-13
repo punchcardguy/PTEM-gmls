@@ -15,8 +15,8 @@ with(instance_create(x,y, obj_custom_object))
 	sprite_set_speed(global.lunge,60,60)
 	global.lap3 = sprite_add("sprites/spr_lap3.png", 1, false, false, 123, 0);
 	global.lap4 = sprite_add("sprites/spr_lap4.png", 1, false, false, 123, 0);
-	global.lap3song = audio_create_stream("music\lap3_2.ogg");
-	global.lap4song = audio_create_stream("music\lap4.ogg");
+	global.lap3song = audio_create_stream("music/mu_lap3.ogg");
+	global.lap4song = audio_create_stream("music/mu_lap4.ogg");
 	step_event = @'
 	with(epicboogaloo)
 	{
