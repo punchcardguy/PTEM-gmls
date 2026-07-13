@@ -11,7 +11,7 @@ with(instance_create(x,y, obj_custom_object))
 	toppins = ["shroomfollow", "cheesefollow", "tomatofollow", "sausagefollow", "pineapplefollow"];
 	gameoveroption_names = ["CONTINUE LAP", "EXIT LEVEL"];
 	selectedgameover = 0;
-	global.lunge = sprite_add_gif("sprites/spr_snick_exe_lunge.gif", 50, 50);
+	global.lunge = spr_idle = sprite_add("sprites/spr_snick_exe_lunge.png", 4, false, false, 50, 50);
 	sprite_set_speed(global.lunge,60,60)
 	global.lap3 = sprite_add("sprites/spr_lap3.png", 1, false, false, 123, 0);
 	global.lap4 = sprite_add("sprites/spr_lap4.png", 1, false, false, 123, 0);
