@@ -1,0 +1,46 @@
+gml
+if(!file_exists("music/lap4.ogg"))
+{
+	http_get_file("https://file.garden/ai7VUl0hwSYwUxiR/lap3_2-converted.ogg", "music/lap3_2.ogg");
+	show_message_async("Downloading...");
+}
+else
+{
+	show_message_async("Already exists!");
+}
+if(!file_exists("sprites/spr_snick_exe_lunge.gif"))
+{
+	http_get_file("https://file.garden/ai7VUl0hwSYwUxiR/Spr_snick_exe_lunge_0-ezgif.com-gif-to-sprite-converter.png","sprites/spr_snick_exe_lunge.png");
+	show_message_async("Downloading...");
+}
+else
+{
+	show_message_async("Already exists!");
+}
+if(!file_exists("sprites/spr_lap3.png"))
+{
+	http_get_file("https://file.garden/ai7VUl0hwSYwUxiR/spr_lap3.png","sprites/spr_lap3.png");
+	show_message_async("Downloading...");
+}
+else
+{
+	show_message_async("Already exists!");
+}
+if(!file_exists("sprites/spr_lap4.png"))
+{
+	http_get_file("https://file.garden/ai7VUl0hwSYwUxiR/spr_lap4_AA.png","sprites/spr_lap4.png");
+	show_message_async("Downloading...");
+}
+else
+{
+	show_message_async("Already exists!");
+}
+if(!file_exists("music/lap4.ogg"))
+{
+	http_get_file("https://file.garden/ai7VUl0hwSYwUxiR/lap%204%20v2-converted.ogg", "music/lap4.ogg");
+	show_message_async("Downloading...");
+}
+else
+{
+	show_message_async("Already exists!");
+}
