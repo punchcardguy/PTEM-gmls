@@ -88,15 +88,23 @@ with(instance_create(x,y, obj_custom_object))
 			}
 			with(obj_music)
 			{
-				if(!audio_is_playing(global.mu_lap3) && global.laps == 1)
+				if(!audio_is_playing(global.mu_lap3) && global.laps == 1 && room != rank_room)
 				{
 					audio_stop_sound(musicID);
 					musicID = scr_music(global.mu_lap3);
 				}
-				if(!audio_is_playing(global.mu_lap4) && global.laps >= 2)
+				else if(room == rank_room)
+				{
+					audio_stop_sound(musicID);
+				}
+				if(!audio_is_playing(global.mu_lap4) && global.laps >= 2 && room != rank_room)
 				{
 					audio_stop_sound(musicID);
 					musicID = scr_music(global.mu_lap4);
+				}
+				else if(room == rank_room)
+				{
+					audio_stop_sound(musicID);
 				}
 			}
 		}
