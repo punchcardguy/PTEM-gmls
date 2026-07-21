@@ -10,6 +10,42 @@ with(obj_player)
 	sprite_set_speed(spr_suplexdash,60,60)
 	global.suplexdashjumploop = sprite_add("sprites/spr_pizzelle_suplexdashjump.png", 3, false, false, 80, 50)
 	sprite_set_speed(global.suplexdashjumploop,60,60)
+	spr_idle = sprite_add("sprites/spr_pizzelle_idle.png", 33, false, false, 50, 50)
+	sprite_set_speed(spr_idle,60,60)
+	spr_idle1 = sprite_add("sprites/spr_pizzelle_idle1.png", 69, false, false, 50, 50)
+	sprite_set_speed(spr_idle1,60,60)
+	spr_idle2 = sprite_add("sprites/spr_pizzelle_idle2.png", 47, false, false, 50, 50)
+	sprite_set_speed(spr_idle2,60,60)
+	spr_idle3 = sprite_add("sprites/spr_pizzelle_idle3.png", 36, false, false, 50, 50)
+	sprite_set_speed(spr_idle3,60,60)
+	spr_idle4 = sprite_add("sprites/spr_pizzelle_idle4.png", 39, false, false, 50, 50)
+	sprite_set_speed(spr_idle4,60,60)
+	spr_idle5 = sprite_add("sprites/spr_pizzelle_idle5.png", 23, false, false, 50, 50)
+	sprite_set_speed(spr_idle5,60,60)
+	spr_idle6 = sprite_add("sprites/spr_pizzelle_idle6.png", 34, false, false, 50, 50)
+	sprite_set_speed(spr_idle6,60,60)
+	tauntsound = audio_create_stream("sfx/TauntLonger.ogg");
+	spr_taunt = sprite_add("sprites/spr_pizzelle_taunt.png", 12, false, false, 85, 50)
+	sprite_set_speed(spr_taunt,0,0)
+	spr_mach1 = sprite_add("sprites/spr_pizzelle_mach1.png", 7, false, false, 56, 50)
+	sprite_set_speed(spr_mach1,60,60)
+	spr_mach = sprite_add("sprites/spr_pizzelle_mach2.png", 3, false, false, 61.5, 50)
+	sprite_set_speed(spr_mach,60,60)
+	spr_mach4 = sprite_add("sprites/spr_pizzelle_mach3.png", 4, false, false, 61.5, 50)
+	sprite_set_speed(spr_mach4,60,60)
+	sfx_mach1snd = audio_create_stream("sfx/pz_mach1.ogg");
+	sfx_mach2snd = audio_create_stream("sfx/pz_mach2.ogg");
+	sfx_mach3snd = audio_create_stream("sfx/pz_mach3.ogg");
+	sfx_mach4snd = audio_create_stream("sfx/pz_mach4.ogg");
+	spr_crazyrun = sprite_add("sprites/spr_pizzelle_crazyrun.png", 5, false, false, 100, 50)
+	sprite_set_speed(spr_crazyrun,60,60)
+	spr_mach3boost = sprite_add("sprites/spr_pizzelle_mach3boost.png", 15, false, false, 61.5, 50)
+	sprite_set_speed(spr_mach3boost,60,60)
+	spr_machclimbwall = sprite_add("sprites/spr_pizzelle_machclimbwall2.png", 5, false, false, 61.5, 50)
+	sprite_set_speed(spr_machclimbwall,60,60)
+	global.machclimbwall3 = sprite_add("sprites/spr_pizzelle_machclimbwall3.png", 4, false, false, 61.5, 50)
+	sprite_set_speed(global.machclimbwall3,60,60)
+	global.machslideboost = audio_create_stream("sfx/pz_machdrift-converted.ogg");
 }
 with(instance_create(x,y, obj_custom_object))
 {
@@ -59,7 +95,7 @@ with(instance_create(x,y, obj_custom_object))
 				}
 				if (move == -xscale && movespeed >= 8 && grounded && skateboarding == 0)
 				{
-					scr_soundeffect(152);
+					scr_soundeffect(global.machslideboost);
 					image_index = 0;
 					state = 105;
 					sprite_index = spr_machslideboost;
@@ -87,10 +123,14 @@ with(instance_create(x,y, obj_custom_object))
 						movespeed += 0.4;
 				}
 				crouchslideAnim = 1;
-				if (vsp < -5)
+				if(wallspeed<12)
+				{
 					sprite_index = spr_machclimbwall;
+				}
 				else
-					sprite_index = spr_clingwall;
+				{
+					sprite_index = global.machclimbwall3;
+				}
 				if (!finalmoveset)
 				{
 					if (!key_attack && !skateboarding)
@@ -193,10 +233,16 @@ with(instance_create(x,y, obj_custom_object))
 				
 				if (move == -xscale && grounded && !launched && fightball == 0 && sprite_index != spr_dashpadmach)
 				{
-					scr_soundeffect(152);
+					scr_soundeffect(global.machslideboost);
 					sprite_index = spr_mach3boost;
 					state = 105;
 					image_index = 0;
+				}
+				if(key_up)
+				{
+					image_index = 0;
+					state = 99;
+					sprite_index = spr_player_superjumpprep;
 				}
 			}
 			var scr_player_Sjumpprep = function()
