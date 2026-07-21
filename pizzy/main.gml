@@ -4,11 +4,11 @@ with(obj_player)
 	character = "PZ";
 	spr_suplexdash = sprite_add("sprites/spr_pizzelle_suplexdash.png", 10, false, false, 50, 50)
 	sprite_set_speed(spr_suplexdash,60,60)
-	spr_suplexdashjump = sprite_add("sprites/spr_pizzelle_suplexdashjumpstart.png", 2, false, false, 50, 50)
+	spr_suplexdashjump = sprite_add("sprites/spr_pizzelle_suplexdashjumpstart.png", 2, false, false, 80, 50)
 	sprite_set_speed(spr_suplexdashjump,60,60)
 	spr_suplexdashjumpstart = sprite_add("sprites/spr_pizzelle_airstart.png", 7, false, false, 50, 50)
 	sprite_set_speed(spr_suplexdash,60,60)
-	global.suplexdashjumploop = sprite_add("sprites/spr_pizzelle_suplexdashjump.png", 3, false, false, 50, 50)
+	global.suplexdashjumploop = sprite_add("sprites/spr_pizzelle_suplexdashjump.png", 3, false, false, 80, 50)
 	sprite_set_speed(global.suplexdashjumploop,60,60)
 }
 with(instance_create(x,y, obj_custom_object))
@@ -22,18 +22,20 @@ with(instance_create(x,y, obj_custom_object))
 		{
 			var scr_player_normal = function()
 			{
-				if (key_attack && state != 42 && !place_meeting(x + xscale, y, obj_solid) && (!place_meeting(x, y + 1, obj_iceblockslope) || !place_meeting(x + (xscale * 5), y, obj_solid)) && !global.kungfu)
+				if (key_attack && state != 42 && !place_meeting(x + xscale, y, obj_solid) && (!place_meeting(x, y + 1, obj_iceblockslope) || !place_meeting(x + (xscale * 5), y, obj_solid)))
 				{
-					sprite_index = spr_mach1;
 					image_index = 0;
 					state = 104;
 					if (movespeed < 6)
+					{
 						movespeed = 6;
+						sprite_index = spr_mach1;
+					}
 				}
 			}
 			var scr_player_jump = function()
 			{
-				if (key_attack && state != 42 && !global.kungfu && grounded)
+				if (key_attack && state != 42 && grounded)
 				{
 					sprite_index = spr_mach1;
 					image_index = 0;
@@ -44,23 +46,28 @@ with(instance_create(x,y, obj_custom_object))
 			}
 			var scr_player_mach2 = function()
 			{
-				if(movespeed>7 && grounded)
+				if (!key_attack && movespeed >= 8 && grounded && skateboarding == 0)
 				{
-					if(!key_attack)
-					{
-						sprite_index = spr_machslidestart;
-						scr_soundeffect(89);
-						state = 105;
-						image_index = 0;
-						launched = 0;
-					}
-					if(move == xscale*-1)
-					{
-						image_index = 0;
-						state = 105;
-						sprite_index = spr_player_machslideboost3;
-						scr_soundeffect(sfx_machslideboost);
-					}
+					image_index = 0;
+					state = 105;
+					scr_soundeffect(89);
+					sprite_index = spr_machslidestart;
+				}
+				else if (!key_attack && movespeed < 8 && grounded && skateboarding == 0)
+				{
+					state = 0;
+				}
+				if (move == -xscale && movespeed >= 8 && grounded && skateboarding == 0)
+				{
+					scr_soundeffect(152);
+					image_index = 0;
+					state = 105;
+					sprite_index = spr_machslideboost;
+				}
+				else if (move == -xscale && movespeed < 8 && grounded && skateboarding == 0)
+				{
+					xscale *= -1;
+					movespeed = 6;
 				}
 			}
 			var scr_player_climbwall = function()
@@ -175,29 +182,21 @@ with(instance_create(x,y, obj_custom_object))
 			}
 			var scr_player_mach3 = function()
 			{
-				if(movespeed>7 && grounded)
+				if (!key_attack && fightball == 0 && !launched && sprite_index != spr_dashpadmach && grounded && fightball == 0)
 				{
-					if(!key_attack)
-					{
-						sprite_index = spr_machslidestart;
-						scr_soundeffect(89);
-						state = 105;
-						image_index = 0;
-						launched = 0;
-					}
-					if(move == xscale*-1)
-					{
-						image_index = 0;
-						state = 105;
-						sprite_index = spr_player_machslideboost3;
-						scr_soundeffect(sfx_machslideboost);
-					}
-					if(key_up)
-					{
-						image_index = 0;
-						state = 99;
-						sprite_index = spr_player_superjumpprep;
-					}
+					sprite_index = spr_machslidestart;
+					scr_soundeffect(89);
+					state = 105;
+					image_index = 0;
+					launched = 0;
+				}
+				
+				if (move == -xscale && grounded && !launched && fightball == 0 && sprite_index != spr_dashpadmach)
+				{
+					scr_soundeffect(152);
+					sprite_index = spr_mach3boost;
+					state = 105;
+					image_index = 0;
 				}
 			}
 			var scr_player_Sjumpprep = function()
@@ -284,14 +283,19 @@ with(instance_create(x,y, obj_custom_object))
 						movespeed = 6;
 				}
 			}
-			var scr_sugary_spire_is_coded_like_shit = function()
+			var scr_player_fastfall = function()
 			{
-				if(sprite_index == spr_bodyslamstart && key_slap)
+				if(sprite_index == spr_bodyslamstart && image_index<1 && key_slap)
 				{
+					sprite_index = spr_suplexdashjump;
+					suplexmove = 1;
+					scr_soundeffect(sfx_suplexdash);
 					state = 42;
-					sprite_index = global.suplexdashjumploop;
+					movespeed = 8;
+					image_index = 0;
+					flash = 1;
 					vsp = 10;
-					movespeed = 10;
+					instance_create(x,y,obj_crazyrunothereffect);
 				}
 			}
 			var scr_player_grab = function()
@@ -299,21 +303,52 @@ with(instance_create(x,y, obj_custom_object))
 				switch(sprite_index)
 				{
 					case spr_suplexdashjumpstart:
+						image_index+=0.15;
 						vsp = 0;
+						if(image_index<3)
+							flash = 1;
+						if key_down
+						{
+							sprite_index = spr_suplexdashjump;
+							vsp = 5;
+						}
+						if(image_index==0.15)
+							instance_create(x,y,obj_crazyrunothereffect);
 					break;
 					case spr_suplexdashjump:
 						if(floor(image_index) >= (image_number - 1))
 							sprite_index = global.suplexdashjumploop;
 					break;
 					case global.suplexdashjumploop:
+						image_index+=0.15;
 						if grounded
 						{
-							state = 0;
-							if (move != xscale)
-								movespeed = 2;
+							if(!key_down)
+							{
+								state = 0;
+								if (move != xscale)
+									movespeed = 2;
+							}
+							else if(key_down)
+							{
+								with (instance_create(x, y, obj_jumpdust))
+									image_xscale = other.xscale;
+								movespeed = 11;
+								crouchslipbuffer = 25;
+								grav = 0.5;
+								sprite_index = spr_crouchslip;
+								image_index = 0;
+								machhitAnim = 0;
+								state = 5;
+							}
 						}
 					break;
 				}
+			}
+			var scr_player_crouchslip = function()
+			{
+				if sprite_index == spr_crouchslip && movespeed > 11
+					movespeed = 11;
 			}
 			switch(state)
 			{
@@ -341,11 +376,14 @@ with(instance_create(x,y, obj_custom_object))
 				case 80:
 					scr_high_jump_check();
 				break;
-				case 108:
-					scr_sugary_spire_is_coded_like_shit();
-				break;
 				case 42:
 					scr_player_grab();
+				break;
+				case 108:
+					scr_player_fastfall();
+				break;
+				case 5:
+					scr_player_crouchslip();
 				break;
 			}
 		}
