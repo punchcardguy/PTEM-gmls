@@ -1,0 +1,5 @@
+gml
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_suplexdash.png?raw=true","sprites/spr_pizzelle_suplexdash.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_suplexdash_airstart.png?raw=true","sprites/spr_pizzelle_airstart.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_suplexdashjumpstart.png?raw=true","sprites/spr_pizzelle_suplexdashjumpstart.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_suplexdashjump.png?raw=true","sprites/spr_pizzelle_suplexdashjump.png");
