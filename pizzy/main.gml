@@ -2,6 +2,14 @@ gml
 with(obj_player)
 {
 	character = "PZ";
+	spr_suplexdash = sprite_add("sprites/spr_pizzelle_suplexdash.png", 10, false, false, 50, 50)
+	sprite_set_speed(spr_suplexdash,60,60)
+	spr_suplexdashjump = sprite_add("sprites/spr_pizzelle_suplexdashjumpstart.png", 2, false, false, 50, 50)
+	sprite_set_speed(spr_suplexdashjump,60,60)
+	spr_suplexdashjumpstart = sprite_add("sprites/spr_pizzelle_airstart.png", 7, false, false, 50, 50)
+	sprite_set_speed(spr_suplexdash,60,60)
+	global.suplexdashjumploop = sprite_add("sprites/spr_pizzelle_suplexdashjump.png", 3, false, false, 50, 50)
+	sprite_set_speed(global.suplexdashjumploop,60,60)
 }
 with(instance_create(x,y, obj_custom_object))
 {
@@ -281,7 +289,7 @@ with(instance_create(x,y, obj_custom_object))
 				if(sprite_index == spr_bodyslamstart && key_slap)
 				{
 					state = 42;
-					sprite_index = spr_suplexdashjump;
+					sprite_index = global.suplexdashjumploop;
 					vsp = 10;
 					movespeed = 10;
 				}
@@ -291,13 +299,19 @@ with(instance_create(x,y, obj_custom_object))
 				switch(sprite_index)
 				{
 					case spr_suplexdashjumpstart:
-						sprite_index = spr_playerN_suplexgrab;
 						vsp = 0;
 					break;
-					case spr_playerN_suplexgrab:
-						vsp = 0;
+					case spr_suplexdashjump:
 						if(floor(image_index) >= (image_number - 1))
-							sprite_index = spr_suplexdashjump;
+							sprite_index = global.suplexdashjumploop;
+					break;
+					case global.suplexdashjumploop:
+						if grounded
+						{
+							state = 0;
+							if (move != xscale)
+								movespeed = 2;
+						}
 					break;
 				}
 			}
