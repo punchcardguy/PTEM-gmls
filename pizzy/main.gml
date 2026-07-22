@@ -64,6 +64,10 @@ with(obj_player)
 	sprite_set_speed(global.walljumpfastfall,60,60)
 	savedmove = 0;
 }
+with(obj_camera)
+{
+	sprite_replace(spr_pizzascore, "sprites/spr_pizzascore.png", 1, false, false, 135.5, 87.5);
+}
 with(instance_create(x,y, obj_custom_object))
 {
     persistent = 1;
@@ -457,6 +461,7 @@ with(instance_create(x,y, obj_custom_object))
 				image_speed = 0.35;
 				move = key_left + key_right;
 				hsp = movespeed;
+				scr_destroy_destructibles(hsp, vsp);
 				if (move != 0)
 					savedmove = move;
 				if (move != 0)
@@ -603,6 +608,13 @@ with(instance_create(x,y, obj_custom_object))
 	{
 		if(image_angle = 90*playerid.xscale && playerid.state != 37 || image_angle != 90*playerid.xscale && playerid.state = 37)
 			instance_destroy();
+	}
+	with(obj_music)
+	{
+		if lap2music != audio_create_stream("music/lap2.ogg")
+			lap2music = audio_create_stream("music/lap2.ogg");
+		if escapemusic != audio_create_stream("music/glucodetry4.ogg")
+			escapemusic = audio_create_stream("music/glucodetry4.ogg");
 	}
     ';
     docommand("reload_gml")
