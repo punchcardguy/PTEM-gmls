@@ -31,3 +31,6 @@ http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_wal
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpend.png?raw=true","sprites/spr_pizzelle_walljumpend.png");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpfastfall.png?raw=true","sprites/spr_pizzelle_walljumpfastfall.png");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpfastfallstart.png?raw=true","sprites/spr_pizzelle_walljumpfastfallstart.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/pizzy/glucodetry4.ogg","music/glucodetry4.ogg");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/pizzy/lap2.ogg","music/lap2.ogg");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_pizzascore.png?raw=true","sprites/spr_pizzascore.png");
