@@ -25,3 +25,9 @@ http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_mac
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_machclimbwall2.png?raw=true","sprites/spr_pizzelle_machclimbwall2.png");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_machclimbwall3.png?raw=true","sprites/spr_pizzelle_machclimbwall3.png");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/pizzy/pz_machdrift-converted.ogg","sfx/pz_machdrift-converted.ogg");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpcancel.png?raw=true","sprites/spr_pizzelle_walljumpcancel.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpcancelstart.png?raw=true","sprites/spr_pizzelle_walljumpcancelstart.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpstart.png?raw=true","sprites/spr_pizzelle_walljumpstart.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpend.png?raw=true","sprites/spr_pizzelle_walljumpend.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpfastfall.png?raw=true","sprites/spr_pizzelle_walljumpfastfall.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walljumpfastfallstart.png?raw=true","sprites/spr_pizzelle_walljumpfastfallstart.png");
