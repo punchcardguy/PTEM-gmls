@@ -62,12 +62,32 @@ with(obj_player)
 	sprite_set_speed(global.walljumpfastfallstart,60,60)
 	global.walljumpfastfall = sprite_add("sprites/spr_pizzelle_walljumpfastfall.png", 3, false, false, 67.5, 57.5)
 	sprite_set_speed(global.walljumpfastfall,60,60)
-	savedmove = 0;
+	savedmove = 1;
+	spr_backslide = sprite_add("sprites/spr_pizzelle_backslide.png", 8, false, false, 68.5, 50)
+	sprite_set_speed(spr_backslide,60,60)
+	spr_backslideland = sprite_add("sprites/spr_pizzelle_backslideland.png", 6, false, false, 68.5, 50)
+	sprite_set_speed(spr_backslideland,60,60)
+	spr_rollgetup = sprite_add("sprites/spr_pizzelle_rollgetup.png", 9, false, false, 70, 52.5)
+	sprite_set_speed(spr_rollgetup,60,60)
+	spr_machroll = sprite_add("sprites/spr_pizzelle_machroll.png", 4, false, false, 62.5, 50)
+	sprite_set_speed(spr_machroll,60,60)
+	spr_jump = sprite_add("sprites/spr_pizzelle_jump.png", 8, false, false, 50, 50)
+	sprite_set_speed(spr_jump,60,60)
+	spr_fall = sprite_add("sprites/spr_pizzelle_fall.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_fall,60,60)
+	spr_land = sprite_add("sprites/spr_pizzelle_land.png", 6, false, false, 50, 50)
+	sprite_set_speed(spr_land,60,60)
+	spr_land2 = sprite_add("sprites/spr_pizzelle_land2.png", 6, false, false, 50, 50)
+	sprite_set_speed(spr_land2,60,60)
+	spr_walkfront = sprite_add("sprites/spr_pizzelle_walkfront.png", 18, false, false, 50, 50)
+	sprite_set_speed(spr_walkfront,60,60)
+	spr_Timesup = sprite_add("sprites/spr_pizzelle_timesup.png", 17, false, false, 50, 50)
+	sprite_set_speed(spr_Timesup,60,60)
 }
-with(obj_camera)
-{
 	sprite_replace(spr_pizzascore, "sprites/spr_pizzascore.png", 1, false, false, 135.5, 87.5);
-}
+	sprite_replace(spr_exitgate, "sprites/spr_exitgate_ss.png", 2, false, false, 73, 189);
+	sprite_replace(spr_font, "sprites/spr_font.png", 39, false, false, 16, 16);
+	sprite_replace(spr_font_collect, "sprites/spr_font_collect.png", 10, false, false, 20, 26.5);
 with(instance_create(x,y, obj_custom_object))
 {
     persistent = 1;
@@ -172,6 +192,8 @@ with(instance_create(x,y, obj_custom_object))
 							image_angle = 90*playerid.xscale;
 						}
 					}
+					if(place_meeting(x+hsp,y+vsp, obj_metalblock))
+						instance_destroy(instance_place(x+hsp,y+vsp, obj_metalblock));
 				}
 				if (!finalmoveset)
 				{
@@ -292,7 +314,7 @@ with(instance_create(x,y, obj_custom_object))
 					state = 105;
 					image_index = 0;
 				}
-				if(key_up)
+				if(key_up && grounded)
 				{
 					image_index = 0;
 					state = 99;
@@ -451,10 +473,21 @@ with(instance_create(x,y, obj_custom_object))
 					break;
 				}
 			}
-			var scr_player_crouchslip = function()
+			var scr_player_sliding = function()
 			{
 				if sprite_index == spr_crouchslip && movespeed > 11
 					movespeed = 11;
+				if movespeed > 12 && (sprite_index == spr_backslide || sprite_index == spr_backslideland)
+				{
+					ratmount_movespeed = 13;
+					if(!instance_exists(obj_chargeeffect))
+					{	
+						with(instance_create(x,y, obj_chargeeffect))
+							image_xscale = playerid.xscale;
+					}
+					if(place_meeting(x+hsp,y+vsp, obj_metalblock))
+						instance_destroy(instance_place(x+hsp,y+vsp, obj_metalblock));
+				}
 			}
 			var scr_player_wallkick = function()
 			{
@@ -596,7 +629,7 @@ with(instance_create(x,y, obj_custom_object))
 					scr_player_fastfall();
 				break;
 				case 5:
-					scr_player_crouchslip();
+					scr_player_sliding();
 				break;
 				case 1000:
 					scr_player_wallkick();
