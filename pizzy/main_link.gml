@@ -93,3 +93,10 @@ http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_sup
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_mach3hit.png?raw=true","sprites/spr_pizzelle_mach3hit.png");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_mach3jump.png?raw=true","sprites/spr_pizzelle_mach3jump.png");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_couchstart.png?raw=true","sprites/spr_pizzelle_couchstart.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_faceplant.png?raw=true","sprites/spr_pizzelle_faceplant.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_longjump.png?raw=true","sprites/spr_pizzelle_longjump.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_longjumpend.png?raw=true","sprites/spr_pizzelle_longjumpend.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_suplexcancel.png?raw=true","sprites/spr_pizzelle_suplexcancel.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_secondjump1.png?raw=true","sprites/spr_pizzelle_secondjump1.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_secondjump2.png?raw=true","sprites/spr_pizzelle_secondjump2.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_mach2jump.png?raw=true","sprites/spr_pizzelle_mach2jump.png");
