@@ -786,6 +786,7 @@ with(instance_create(x,y, obj_custom_object))
 				var i = 0;
 				mask_index = spr_crouchmask
 				image_speed = 0.3;
+				instakillmove = true;
 				hsp = (movespeed*xscale)+(railmovespeed*raildir);
 				scr_destroy_destructibles(hsp, vsp);
 				if (!grounded)
