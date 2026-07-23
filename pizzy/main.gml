@@ -83,11 +83,157 @@ with(obj_player)
 	sprite_set_speed(spr_walkfront,60,60)
 	spr_Timesup = sprite_add("sprites/spr_pizzelle_timesup.png", 17, false, false, 50, 50)
 	sprite_set_speed(spr_Timesup,60,60)
+	_spr_tv_exprcollect = sprite_add("sprites/spr_tv_exprcollect.png", 12, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_exprcollect,60,60)
+	_spr_tv_exprcombo = sprite_add("sprites/spr_tv_exprcombo.png", 78, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_exprcombo,60,60)
+	_spr_tv_empty = sprite_add("sprites/spr_tv_empty.png", 1, false, false, 139, 134)
+	_spr_tv_exprhurt = sprite_add("sprites/spr_tv_exprhurt.png", 6, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_exprhurt,60,60)
+	_spr_tv_exprmach3 = sprite_add("sprites/spr_tv_exprmach3.png", 3, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_exprmach3,60,60)
+	_spr_tv_exprmach4 = sprite_add("sprites/spr_tv_exprmach4.png", 3, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_exprmach4,60,60)
+	_spr_tv_idle = sprite_add("sprites/spr_tv_idle.png", 3, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_idle,60,60)
+	_spr_tv_idleanim1 = sprite_add("sprites/spr_tv_idleanim1.png", 33, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_idleanim1,60,60)
+	_spr_tv_idleanim2 = sprite_add("sprites/spr_tv_idleanim2.png", 25, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_idleanim2,60,60)
+	_spr_tv_off = sprite_add("sprites/spr_tv_off.png", 1, false, false, 139, 134)
+	_spr_tv_open = sprite_add("sprites/spr_tv_open.png", 18, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_open,60,60)
+	_spr_tv_whitenoise = sprite_add("sprites/spr_tv_whitenoise.png", 5, false, false, 139, 134)
+	sprite_set_speed(_spr_tv_whitenoise,60,60)
+	global.entryway = audio_create_stream("music/entryway_NEW.ogg");
+	global.entrywaysecret = audio_create_stream("music/mu_wafflesecret.ogg");
+	spr_dive = sprite_add("sprites/spr_pizzelle_dive.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_dive,60,60)
+	spr_crouchslip = sprite_add("sprites/spr_pizzelle_crouchslip.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_crouchslip,60,60)
+	spr_bodyslamstart = sprite_add("sprites/spr_pizzelle_bodyslamstart.png", 9, false, false, 72, 83)
+	sprite_set_speed(spr_bodyslamstart,60,60)
+	spr_bodyslamfall = sprite_add("sprites/spr_pizzelle_bodyslamfall.png", 3, false, false, 56, 75)
+	sprite_set_speed(spr_bodyslamfall,60,60)
+	spr_bodyslamland = sprite_add("sprites/spr_pizzelle_bodyslamland.png", 4, false, false, 56, 75)
+	sprite_set_speed(spr_bodyslamland,60,60)
+	spr_crouch = sprite_add("sprites/spr_pizzelle_crouch.png", 24, false, false, 50, 50)
+	sprite_set_speed(spr_crouch,60,60)
+	spr_crouchfall = sprite_add("sprites/spr_pizzelle_crouchfall.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_crouchfall,60,60)
+	spr_crouchjump = sprite_add("sprites/spr_pizzelle_crouchjump.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_crouchjump,60,60)
+	spr_facehurtup = sprite_add("sprites/spr_pizzelle_facehurtup.png", 23, false, false, 56, 75)
+	sprite_set_speed(spr_facehurtup,60,60)
+	spr_facehurt = sprite_add("sprites/spr_pizzelle_facehurt.png", 10, false, false, 56, 67)
+	sprite_set_speed(spr_facehurt,60,60)
+	spr_hitwall = sprite_add("sprites/spr_pizzelle_hitwall.png", 13, false, false, 59, 50)
+	sprite_set_speed(spr_hitwall,60,60)
+	spr_machslideboost = sprite_add("sprites/spr_pizzelle_machslideboost.png", 13, false, false, 61.5, 50)
+	sprite_set_speed(spr_machslideboost,60,60)
+	spr_machslidestart = sprite_add("sprites/spr_pizzelle_machslidestart.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_machslidestart,60,60)
+	spr_machslide = sprite_add("sprites/spr_pizzelle_machslide.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_machslide,60,60)
+	spr_machslideend = sprite_add("sprites/spr_pizzelle_machslideend.png", 6, false, false, 50, 50)
+	sprite_set_speed(spr_machslideend,60,60)
+	spr_move = sprite_add("sprites/spr_pizzelle_move.png", 12, false, false, 50, 50)
+	sprite_set_speed(spr_move,60,60)
+	global.poundcancelstart = sprite_add("sprites/spr_pizzelle_poundcancelstart.png", 9, false, false, 50, 50)
+	sprite_set_speed(global.poundcancelstart,60,60)
+	spr_poundcancel1 = sprite_add("sprites/spr_pizzelle_poundcancel1.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_poundcancel1,60,60)
+	spr_poundcancel2 = sprite_add("sprites/spr_pizzelle_poundcancel2.png", 5, false, false, 50, 50)
+	sprite_set_speed(spr_poundcancel2,60,60)
+	spr_superjump = sprite_add("sprites/spr_pizzelle_superjump.png", 6, false, false, 50, 75)
+	sprite_set_speed(spr_superjump,60,60)
+	spr_superjumpland = sprite_add("sprites/spr_pizzelle_superjumpland.png", 8, false, false, 50, 50)
+	sprite_set_speed(spr_superjumpland,60,60)
+	spr_superjumpleft = sprite_add("sprites/spr_pizzelle_superjumpleft.png", 8, false, false, 50, 50)
+	sprite_set_speed(spr_superjumpleft,60,60)
+	spr_superjumpright = sprite_add("sprites/spr_pizzelle_superjumpright.png", 8, false, false, 50, 50)
+	sprite_set_speed(spr_superjumpright,60,60)
+	spr_superjumpprep = sprite_add("sprites/spr_pizzelle_superjumpprep.png", 6, false, false, 50, 50)
+	sprite_set_speed(spr_superjumpprep,60,60)
+	spr_superjumppreplight = sprite_add("sprites/spr_pizzelle_superjumppreplight.png", 2, false, false, 50, 50)
+	sprite_set_speed(spr_superjumppreplight,60,60)
+	spr_mach3hit = sprite_add("sprites/spr_pizzelle_mach3hit.png", 7, false, false, 78, 50)
+	sprite_set_speed(spr_mach3hit,60,60)
+	spr_mach3jump = sprite_add("sprites/spr_pizzelle_mach3jump.png", 9, false, false, 72, 66)
+	sprite_set_speed(spr_mach3jump,60,60)
+	spr_couchstart = sprite_add("sprites/spr_pizzelle_couchstart.png", 9, false, false, 72, 66)
+	sprite_set_speed(spr_couchstart,60,60)
 }
-	sprite_replace(spr_pizzascore, "sprites/spr_pizzascore.png", 1, false, false, 135.5, 87.5);
-	sprite_replace(spr_exitgate, "sprites/spr_exitgate_ss.png", 2, false, false, 73, 189);
-	sprite_replace(spr_font, "sprites/spr_font.png", 39, false, false, 16, 16);
-	sprite_replace(spr_font_collect, "sprites/spr_font_collect.png", 10, false, false, 20, 26.5);
+sprite_replace(spr_pizzascore, "sprites/spr_pizzascore.png", 1, false, false, 135.5, 87.5);
+sprite_replace(spr_exitgate, "sprites/spr_exitgate_ss.png", 2, false, false, 73, 189);
+sprite_replace(spr_font, "sprites/spr_font.png", 39, false, false, 16, 16);
+sprite_replace(spr_font_collect, "sprites/spr_font_collect.png", 10, false, false, 20, 26.5);
+sprite_replace(spr_pizzascore_pepper, "sprites/spr_cranktopping.png", 1, false, false, 67.75, 33);
+sprite_replace(spr_pizzascore_pepperoni, "sprites/spr_branktopping.png", 1, false, false, 67.75, 33);
+sprite_replace(spr_pizzascore_olive, "sprites/spr_aranktopping.png", 1, false, false, 67.75, 33);
+sprite_replace(spr_pizzascore_shroom, "sprites/spr_sranktopping.png", 1, false, false, 67.75, 33);
+with(obj_music)
+{
+	room_arr = 
+	[
+		[Realtitlescreen, mu_title, mu_medievalsecret, false], 
+		[rm_levelselect, mu_title, mu_medievalsecret, false], 
+		[entrance_1, global.entryway, global.entrywaysecret, false], 
+		[dungeon_1, mu_dungeon, mu_dungeonsecret, false], 
+		[dungeon_8, mu_dungeon, mu_dungeonsecret, true], 
+		[dungeon_9, mu_dungeondepth, mu_dungeonsecret, true],
+		[strongcold_1, mu_chateau, mu_medievalsecret, false], 
+		[strongcold_2, mu_strongcold, mu_medievalsecret, false], 
+		[strongcold_8, mu_strongcold, mu_medievalsecret, false], 
+		[strongcold_9, mu_dungeondepth, mu_medievalsecret, false], 
+		[strongcold_10, mu_dungeondepth, mu_medievalsecret, false], 
+		[medieval_1, mu_medievalentrance, mu_medievalsecret, false], 
+		[medieval_2, mu_medievalentrance, mu_medievalsecret, true], 
+		[medieval_3, mu_medievalremix, mu_medievalsecret, true], 
+		[medieval_5, mu_medievalremix, mu_medievalsecret, true], 
+		[medieval_6, mu_medieval, mu_medievalsecret, true],
+		[ruin_1, mu_ruin, mu_ruinsecret, false], 
+		[ruin_6, mu_ruin, mu_ruinsecret, true], 
+		[ruin_7, mu_ruinremix, mu_ruinsecret, true],
+		[badland_1, mu_desert, mu_desertsecret, false], 
+		[badland_8, mu_desert, mu_desertsecret, true], 
+		[badland_9, mu_ufo, mu_desertsecret, true], 
+		[badland_mart4, mu_ufo, mu_desertsecret, true], 
+		[badland_10, mu_desert, mu_desertsecret, true], 
+		[forest_1, mu_forest, mu_medievalsecret, false], 
+		[forest_G1, mu_forest, mu_medievalsecret, true], 
+		[forest_G1b, mu_gustavo, mu_medievalsecret, false], 
+		[forest_5, mu_forest, mu_medievalsecret, true], 
+		[chateau_1, mu_chateau, mu_medievalsecret, false], 
+		[sewer_1, mu_sewer, mu_medievalsecret, false], 
+		[freezer_1, mu_freezer, mu_medievalsecret, false], 
+		[kidsparty_1, mu_kidsparty, mu_medievalsecret, false], 
+		[minigolf_1, mu_minigolf, mu_medievalsecret, false], 
+		[industrial_1, mu_industrial, mu_medievalsecret, false], 
+		[street_intro, mu_street, mu_medievalsecret, false], 
+		[farm_2, mu_farm, mu_farmsecret, false], 
+		[space_1, mu_pinball, mu_pinballsecret, false], 
+		[graveyard_1, mu_graveyard, mu_medievalsecret, false], 
+		[saloon_1, mu_saloon, mu_saloonsecret, false], 
+		[ufo_1, mu_pinball, mu_pinballsecret, false], 
+		[plage_entrance, mu_beach, mu_medievalsecret, false], 
+		[war_1, mu_war, mu_medievalsecret, false], 
+		[characterselect, mu_characterselect, mu_medievalsecret, false],
+		[rm_swedish, mu_ufo, mu_pinballsecret, false], 
+		[tower_tutorial1, mu_funiculi, mu_funiculi, false], 
+		[boss_fakepep, mu_fakepep, mu_fakepep, false], 
+		[boss_fakepephallway, mu_PIZZA_TOWER_THyrzzryzryEME_SONG, mu_PIZZA_TOWER_THyrzzryzryEME_SONG, false], 
+		[rm_editor_big, mu_snickchallenge, mu_medievalsecret, false], 
+		[dragonlair_1, mu_dungeondepth, mu_medievalsecret, false], 
+		[tutorial_room1, mu_tutorial, mu_medievalsecret, false], 
+		[normalT_room1, mu_ruin, mu_medievalsecret, false], 
+		[normalT_bonus1, mu_dungeondepth, mu_medievalsecret, false], 
+		[normalT_room3, mu_ruin, mu_medievalsecret, false], 
+		[normalT_bonus2, mu_dungeondepth, mu_medievalsecret, false], 
+		[normalT_room5, mu_ruin, mu_medievalsecret, false], 
+		[desert_1, mu_desert, mu_desertsecret, false], 
+	]
+}
 with(instance_create(x,y, obj_custom_object))
 {
     persistent = 1;
@@ -131,7 +277,7 @@ with(instance_create(x,y, obj_custom_object))
 				{
 					image_index = 0;
 					state = 105;
-					scr_soundeffect(89);
+					scr_soundeffect(sfx_break);
 					sprite_index = spr_machslidestart;
 				}
 				else if (!key_attack && movespeed < 8 && grounded && skateboarding == 0)
@@ -239,7 +385,7 @@ with(instance_create(x,y, obj_custom_object))
 					if (!skateboarding)
 					{
 						sprite_index = spr_superjumpland;
-						scr_soundeffect(129);
+						scr_soundeffect(sfx_groundpound);
 						image_index = 0;
 						state = 123;
 						machhitAnim = 0;
@@ -301,7 +447,7 @@ with(instance_create(x,y, obj_custom_object))
 				if (!key_attack && fightball == 0 && !launched && sprite_index != spr_dashpadmach && grounded && fightball == 0)
 				{
 					sprite_index = spr_machslidestart;
-					scr_soundeffect(89);
+					scr_soundeffect(sfx_break);
 					state = 105;
 					image_index = 0;
 					launched = 0;
@@ -382,7 +528,7 @@ with(instance_create(x,y, obj_custom_object))
 				}
 				if (!key_up && grounded && (sprite_index == spr_superjumppreplight || sprite_index == spr_superjumpleft || sprite_index == spr_superjumpright) && !scr_solid(x, y - 16) && !scr_solid(x, y - 32))
 				{
-					scr_soundeffect(193);
+					scr_soundeffect(sfx_superjumprelease);
 					instance_create(x, y, obj_explosioneffect);
 					sprite_index = spr_superjump;
 					state = 97;
@@ -411,9 +557,9 @@ with(instance_create(x,y, obj_custom_object))
 						movespeed = 6;
 				}
 			}
-			var scr_player_fastfall = function()
+			var scr_player_groundpound = function()
 			{
-				if(sprite_index == spr_bodyslamstart && image_index<1 && key_slap)
+				if(sprite_index == spr_bodyslamstart && image_index<1 && key_slap2)
 				{
 					sprite_index = spr_suplexdashjump;
 					suplexmove = 1;
@@ -425,6 +571,10 @@ with(instance_create(x,y, obj_custom_object))
 					vsp = 10;
 					instance_create(x,y,obj_crazyrunothereffect);
 				}
+				if(sprite_index == spr_poundcancel1 && prevstate != 108)
+					sprite_index = global.poundcancelstart;
+				if(sprite_index = global.poundcancelstart && floor(image_index) >= (image_number - 1))
+					sprite_index = spr_poundcancel1;
 			}
 			var scr_player_grab = function()
 			{
@@ -565,8 +715,8 @@ with(instance_create(x,y, obj_custom_object))
 						sprite_index = spr_breakdanceuppercut;
 						vsp = -14;
 						movespeed = hsp;
-						particle_set_scale(4, xscale, 1);
-						create_particle(x, y, 4, 0);
+						particle_set_scale(particle.highjumpcloud2, xscale, 1);
+						create_particle(x, y, particle.highjumpcloud2, 0);
 					}
 				}
 				if (grounded && vsp >= 0)
@@ -626,7 +776,7 @@ with(instance_create(x,y, obj_custom_object))
 					scr_player_grab();
 				break;
 				case 108:
-					scr_player_fastfall();
+					scr_player_groundpound();
 				break;
 				case 5:
 					scr_player_sliding();
@@ -649,6 +799,8 @@ with(instance_create(x,y, obj_custom_object))
 		if escapemusic != audio_create_stream("music/glucodetry4.ogg")
 			escapemusic = audio_create_stream("music/glucodetry4.ogg");
 	}
+	with(obj_tvtrigger)
+		instance_destroy();
     ';
     docommand("reload_gml")
 }
