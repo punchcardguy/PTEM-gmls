@@ -34,3 +34,16 @@ http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_wal
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/pizzy/glucodetry4.ogg","music/glucodetry4.ogg");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/pizzy/lap2.ogg","music/lap2.ogg");
 http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_pizzascore.png?raw=true","sprites/spr_pizzascore.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_backslide.png?raw=true","sprites/spr_pizzelle_backslide.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_backslideland.png?raw=true","sprites/spr_pizzelle_backslideland.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_rollgetup.png?raw=true","sprites/spr_pizzelle_rollgetup.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_machroll.png?raw=true","sprites/spr_pizzelle_machroll.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_jump.png?raw=true","sprites/spr_pizzelle_jump.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_fall.png?raw=true","sprites/spr_pizzelle_fall.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_land.png?raw=true","sprites/spr_pizzelle_land.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_land2.png?raw=true","sprites/spr_pizzelle_land2.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_Timesup.png?raw=true","sprites/spr_pizzelle_timesup.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_walkfront.png?raw=true","sprites/spr_pizzelle_walkfront.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_exitgate_ss.png?raw=true","sprites/spr_exitgate_ss.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_font.png?raw=true","sprites/spr_font.png");
+http_get_file("https://github.com/punchcardguy/PTEM-gmls/blob/main/pizzy/spr_font_collect.png?raw=true","sprites/spr_font_collect.png");
