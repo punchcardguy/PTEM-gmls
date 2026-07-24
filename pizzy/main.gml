@@ -170,7 +170,7 @@ with(obj_player)
 	sprite_set_speed(spr_longjump,60,60)
 	spr_longjumpend = sprite_add("sprites/spr_pizzelle_longjumpend.png", 2, false, false, 63, 50)
 	sprite_set_speed(spr_longjumpend,60,60)
-	spr_suplexcancel = sprite_add("sprites/spr_pizzelle_suplexcancel.png", 7, false, false, 50, 50)
+	spr_suplexcancel = sprite_add("sprites/spr_pizzelle_suplexcancel.png", 7, false, false, 80, 50)
 	sprite_set_speed(spr_suplexcancel,60,60)
 	spr_secondjump1 = sprite_add("sprites/spr_pizzelle_secondjump1.png", 6, false, false, 64, 52.5)
 	sprite_set_speed(spr_secondjump1,60,60)
@@ -178,6 +178,30 @@ with(obj_player)
 	sprite_set_speed(spr_secondjump2,60,60)
 	spr_mach2jump = sprite_add("sprites/spr_pizzelle_mach2jump.png", 7, false, false, 50, 50)
 	sprite_set_speed(spr_mach2jump,60,60)
+	spr_hurtwalk = spr_move;
+	spr_haulingidle = sprite_add("sprites/spr_pizzelle_haulingidle.png", 10, false, false, 50, 50)
+	sprite_set_speed(spr_haulingidle,60,60)
+	spr_haulingjump = sprite_add("sprites/spr_pizzelle_haulingjump.png", 4, false, false, 50, 50)
+	sprite_set_speed(spr_haulingjump,60,60)
+	spr_haulingland = sprite_add("sprites/spr_pizzelle_haulingland.png", 4, false, false, 50, 50)
+	sprite_set_speed(spr_haulingland,60,60)
+	spr_haulingstart = sprite_add("sprites/spr_pizzelle_haulingstart.png", 5, false, false, 50, 50)
+	sprite_set_speed(spr_haulingstart,60,60)
+	spr_haulingwalk = sprite_add("sprites/spr_pizzelle_haulingwalk.png", 13, false, false, 50, 50)
+	sprite_set_speed(spr_haulingwalk,60,60)
+	spr_haulingfall = sprite_add("sprites/spr_pizzelle_haulingfall.png", 3, false, false, 50, 50)
+	sprite_set_speed(spr_haulingfall,60,60)
+	global.boomboxsong = audio_create_stream("music/boombox.ogg");
+	global.pz_jump = audio_create_stream("sfx/pz_jump.ogg");
+	global.sfx_wallkick = audio_create_stream("sfx/sfx_wallkick.ogg");
+	global.sfx_wallkickloop = audio_create_stream("sfx/sfx_wallkickloop.ogg");
+	global.sfx_wallkickcancel = audio_create_stream("sfx/sfx_wallkickcancel.ogg");
+	spr_breakdanceuppercut = sprite_add("sprites/spr_pizzelle_breakdanceuppercut.png", 13, false, false, 86.5, 86)
+	sprite_set_speed(spr_breakdanceuppercut,60,60)
+	spr_breakdanceuppercutend = sprite_add("sprites/spr_pizzelle_breakdanceuppercutend.png", 3, false, false, 86.5, 86)
+	sprite_set_speed(spr_breakdanceuppercutend,60,60)
+	spr_breakdance = sprite_add("sprites/spr_pizzelle_breakdance.png", 60, false, false, 50, 50)
+	sprite_set_speed(spr_breakdance,60,60)
 }
 sprite_replace(spr_pizzascore, "sprites/spr_pizzascore.png", 1, false, false, 135.5, 87.5);
 sprite_replace(spr_exitgate, "sprites/spr_exitgate_ss.png", 2, false, false, 73, 189);
@@ -187,6 +211,7 @@ sprite_replace(spr_pizzascore_pepper, "sprites/spr_cranktopping.png", 1, false, 
 sprite_replace(spr_pizzascore_pepperoni, "sprites/spr_branktopping.png", 1, false, false, 67.75, 33);
 sprite_replace(spr_pizzascore_olive, "sprites/spr_aranktopping.png", 1, false, false, 67.75, 33);
 sprite_replace(spr_pizzascore_shroom, "sprites/spr_sranktopping.png", 1, false, false, 67.75, 33);
+sprite_replace(spr_beatbox, "sprites/spr_beatbox.png", 1, false, false, 50, 50);
 with(obj_music)
 {
 	room_arr = 
@@ -260,6 +285,11 @@ with(instance_create(x,y, obj_custom_object))
 		{
 			if grounded && state != 1001
 				floatygrab = 0;
+			if audio_is_playing(sfx_jump)
+			{
+				scr_soundeffect(global.pz_jump);
+				audio_stop_sound(sfx_jump);
+			}
 			var scr_player_normal = function()
 			{
 				if (key_attack && state != 42 && !place_meeting(x + xscale, y, obj_solid) && (!place_meeting(x, y + 1, obj_iceblockslope) || !place_meeting(x + (xscale * 5), y, obj_solid)))
@@ -272,6 +302,25 @@ with(instance_create(x,y, obj_custom_object))
 						sprite_index = spr_mach1;
 					}
 				}
+				if !obj_music.pillar_on_camera
+				{
+					if instance_exists(obj_beatbox)
+					{
+						audio_sound_gain(obj_music.musicID, lerp(audio_sound_get_gain(obj_music.musicID), global.option_music_volume * 0.25, 0.1), 0); 
+						if !audio_is_playing(global.boomboxsong)
+						{
+							global.boomboxsong = audio_play_sound(global.boomboxsong, 1, true);
+							sfx_gain(global.boomboxsong);
+						} 
+					} 
+					else
+					{
+						audio_sound_gain(obj_music.musicID, lerp(audio_sound_get_gain(obj_music.musicID), global.option_music_volume, 0.1), 0);
+						audio_stop_sound(global.boomboxsong);
+					}
+				}
+				else
+					audio_stop_sound(global.boomboxsong);
 				audio_stop_sound(global.mach2snd);
 				audio_stop_sound(global.mach3snd);
 			}
@@ -361,6 +410,7 @@ with(instance_create(x,y, obj_custom_object))
 					}
 					if(place_meeting(x+hsp,y+vsp, obj_metalblock))
 						instance_destroy(instance_place(x+hsp,y+vsp, obj_metalblock));
+					instakillmove = true;
 				}
 				if (!finalmoveset)
 				{
@@ -456,6 +506,8 @@ with(instance_create(x,y, obj_custom_object))
 					sprite_index = global.walljumpstart;
 					state = 1000;
 					xscale*=-1;
+					vsp = -14;
+					scr_soundeffect(global.sfx_wallkick);
 					audio_stop_sound(global.mach2snd);
 					audio_stop_sound(global.mach3snd);
 				}
@@ -568,6 +620,10 @@ with(instance_create(x,y, obj_custom_object))
 					image_index = 0;
 					sprite_index = spr_Sjumpcancelstart;
 				}
+				if move != 0 && !place_meeting(x+3*move,y, obj_solid) && sprite_index == spr_superjump
+				{
+					x += move*3;
+				}
 			}
 			var scr_high_jump_check = function()
 			{
@@ -672,6 +728,7 @@ with(instance_create(x,y, obj_custom_object))
 					}
 					if(place_meeting(x+hsp,y+vsp, obj_metalblock))
 						instance_destroy(instance_place(x+hsp,y+vsp, obj_metalblock));
+					instakillmove = true;
 				}
 			}
 			var scr_player_wallkick = function()
@@ -680,6 +737,7 @@ with(instance_create(x,y, obj_custom_object))
 				move = key_left + key_right;
 				hsp = movespeed;
 				scr_destroy_destructibles(hsp, vsp);
+				scr_dotaunt();
 				if (move != 0)
 					savedmove = move;
 				if (move != 0)
@@ -690,6 +748,8 @@ with(instance_create(x,y, obj_custom_object))
 				{
 					movespeed = Approach(movespeed, 0, 0.45);
 				}
+				if(!audio_is_playing(global.sfx_wallkickloop))
+					scr_soundeffect(global.sfx_wallkickloop);
 				if(sprite_index == global.walljumpstart && floor(image_index) == (image_number - 1))
 				{
 					image_index = 0;
@@ -712,7 +772,7 @@ with(instance_create(x,y, obj_custom_object))
 						image_index = 0;
 						sprite_index = global.walljumpfastfall;
 					}
-					else if(key_jump && sprite_index == global.walljumpfastfall)
+					else if(key_jump && (sprite_index == global.walljumpfastfall || sprite_index == global.walljumpfastfallstart))
 					{
 						state = 108;
 						image_index = 0;
@@ -723,11 +783,13 @@ with(instance_create(x,y, obj_custom_object))
 						vsp = -6;
 						wallspeed = vsp;
 						freeFallSmash = 0;
+						audio_stop_sound(global.sfx_wallkickloop);
 					}
 				}
 				if (key_slap2)
 				{
 					input_buffer_slap = finalmoveset ? 0 : 8;
+					audio_stop_sound(global.sfx_wallkickloop);
 					jumpstop = true;
 					if move != 0
 						xscale = move;
@@ -741,10 +803,11 @@ with(instance_create(x,y, obj_custom_object))
 						hsp = movespeed * xscale;
 						vsp = -5;
 						state = 121;
-						scr_soundeffect(sfx_cowkick);
+						scr_soundeffect(global.sfx_wallkickcancel);
 					}
 					else
 					{
+						scr_soundeffect(sfx_uppercut2);
 						state = 80;
 						image_index = 0;
 						sprite_index = spr_breakdanceuppercut;
@@ -756,6 +819,7 @@ with(instance_create(x,y, obj_custom_object))
 				}
 				if (grounded && vsp >= 0)
 				{
+					audio_stop_sound(global.sfx_wallkickloop);
 					flash = true;
 					if move != 0
 						xscale = move;
@@ -784,7 +848,7 @@ with(instance_create(x,y, obj_custom_object))
 			var scr_player_faceplant = function()
 			{
 				var i = 0;
-				mask_index = spr_crouchmask
+				mask_index = spr_crouchmask;
 				image_speed = 0.3;
 				instakillmove = true;
 				hsp = (movespeed*xscale)+(railmovespeed*raildir);
@@ -797,7 +861,7 @@ with(instance_create(x,y, obj_custom_object))
 					i = 1;
 				if(!floatygrab && !grounded)
 				{
-					vsp = -10;
+					vsp = -5;
 					floatygrab = 1;
 				}
 				if(key_jump)
@@ -915,5 +979,17 @@ with(instance_create(x,y, obj_custom_object))
 	with(obj_tvtrigger)
 		instance_destroy();
     ';
+	drawgui_event = @'
+	with(obj_tv)
+	{
+		var barxx = -26;
+        var baryy = 30;
+        draw_sprite(spr_barpop, 0, 832 + barxx, 250 + baryy);
+        var sw = sprite_get_width(spr_barpop);
+        var sh = sprite_get_height(spr_barpop);
+        var b = global.combotime / 61;
+        draw_sprite_part(spr_barpop, 1, 0, 0, sw * b, sh, 832 + barxx, 250 + baryy);
+	}
+	';
     docommand("reload_gml")
 }
