@@ -309,7 +309,7 @@ with(instance_create(x,y, obj_custom_object))
 						audio_sound_gain(obj_music.musicID, lerp(audio_sound_get_gain(obj_music.musicID), global.option_music_volume * 0.25, 0.1), 0); 
 						if !audio_is_playing(global.boomboxsong)
 						{
-							global.boomboxsong = audio_play_sound(global.boomboxsong, 1, true);
+							audio_play_sound(global.boomboxsong, 1, true);
 							sfx_gain(global.boomboxsong);
 						} 
 					} 
