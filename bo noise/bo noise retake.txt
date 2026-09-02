@@ -1,0 +1,206 @@
+gml
+with (instance_create(0, 0, obj_custom_object_ext))
+{
+	persistent = true;
+	image_alpha = 0;
+	download_queue = ds_queue_create();
+	
+	enum asset_type_dl
+	{
+		sprite,
+		sound,
+		replace,
+	}
+	downloading = false;
+	
+	downloadFile = function(_file, _filename, _frames = 1, xorigin = 0, yorigin = 0)
+	{
+		var q =
+		{
+			file : _file, 
+			name : _filename,
+			frames : _frames,
+			xo : xorigin,
+			yo : yorigin,
+			type : asset_type_dl.sprite,
+		};
+		
+		ds_queue_enqueue(download_queue, q);
+	}
+	
+	downloadFileSound = function(_file, _filename)
+	{
+		var q =
+		{
+			file : _file, 
+			name : _filename,
+			type : asset_type_dl.sound,
+		};
+		
+		ds_queue_enqueue(download_queue, q);
+	}
+	
+	downloadFile_replace = function(_file, _filename, _frames = 1, xorigin = 0, yorigin = 0, _replace)
+	{
+		var q =
+		{
+			file : _file, 
+			name : _filename,
+			frames : _frames,
+			xo : xorigin,
+			yo : yorigin,
+			type : asset_type_dl.replace,
+			replacement : _replace,
+		};
+		
+		ds_queue_enqueue(download_queue, q);
+	}
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Super_bo_noise21-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_idle.png", 13, 50, 50, "spr_idle");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Bo_noise_move-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_move.png", 6, 50, 50, "spr_move");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Bo_noise_jumping-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_jump.png", 5, 50, 50, "spr_jump");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Bo_noise_falling-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_fall.png", 3, 50, 50, "spr_fall");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Spr_playerN_land_0-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_land.png", 5, 50, 50, "spr_land");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Spr_playerN_land2_0-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_land2.png", 3, 50, 50, "spr_land2");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Bo_noise_longjump-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_longjump.png", 11, 50, 50, "spr_longjump");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Bo_noise_longjumpend-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_longjumpend.png", 13, 50, 50, "spr_longjumpend");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Spr_playerN_suplexgrab_0-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_suplexdash.png", 12, 100, 50, "spr_suplexdash");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Spr_playerN_suplexgrabjumpstart_0-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_suplexdashairstart.png", 4, 100, 50, "spr_suplexdashjumpstart");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Spr_playerN_suplexgrabjump_0-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_suplexdashair.png", 3, 100, 50, "spr_suplexdashjump");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/bo%20noise/Bo_bunny3F-ezgif.com-gif-to-sprite-converter.png?raw=true", "playerBN_mach3.png", 4, 57.5, 57.5, "spr_mach4");
+	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/bo%20noise/bomach3.ogg", "bomach3.ogg")
+	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/bo%20noise/bomach12.ogg", "bomach12.ogg")
+	event.step[0] = @'
+	var scr_anim = function(arg0 = 0)
+	{
+		if arg0 == floor(image_index)
+			return true
+		
+		return false
+	}
+	if !ds_queue_empty(download_queue) && !downloading
+	{
+		var d = ds_queue_head(download_queue);
+
+		if !file_exists(d.name)
+		{
+			downloading = true;
+		    req = http_get_file(d.file, d.name);
+		} 
+		else
+		{
+			if d.type == 0
+			{
+				var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo);
+				sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
+				variable_global_set(string_replace_all(d.name, ".png", ""), _spr);
+			}
+			else if d.type == 1
+				variable_global_set(string_replace_all(d.name, ".ogg", ""), audio_create_stream(d.name));
+			else if d.type == 2
+			{
+				var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo)
+				var _name = string_replace_all(d.name, ".png", "")
+				sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
+				variable_global_set(_name, _spr);
+				with obj_player variable_instance_set(id, d.replacement, variable_global_get(_name))
+			}
+			else if d.type == 3
+			{
+				var _spr = sprite_add_gif(d.name, d.xo, d.yo)
+				var _name = string_replace_all(d.name, ".gif", "")
+				sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
+				variable_global_set(_name, _spr);
+				with obj_player variable_instance_set(id, d.replacement, variable_global_get(_name))
+			}
+			
+			ds_queue_dequeue(download_queue);
+		} 
+	}
+	with(obj_player)
+	{
+		if variable_global_exists("bomach3") && sfx_mach3snd != global.bomach3
+			sfx_mach3snd = global.bomach3
+		if variable_global_exists("bomach12") && sfx_mach1snd != global.bomach12
+		{
+			sfx_mach1snd = global.bomach12
+			sfx_mach2snd = global.bomach12
+		}
+		switch(state)
+		{
+			case 80:
+			// blleeeehhhh
+			break;
+			case 105:
+			if (grounded && key_jump2)
+			{
+				//fmod_studio_event_description_release_all_instances(fmod_studio_system_get_event("event:/SFX/bo/break"));
+				//fmod_event_play(sideflipIntro_snd);
+				//sprite_index = spr_playerBN_sideflipStart;
+				sprite_index = spr_playerN_slipbanan1;
+				image_index = 0;
+				//particle_set_scale(UnknownEnum.Value_4, xscale, 1);
+				//create_particle(x, y, UnknownEnum.Value_4, 0);
+				vsp = -15;
+				dir = -xscale;
+				movespeed = 8 * dir;
+				xscale *= -1
+				hsp = movespeed;
+				state = 281;
+				jumpstop = 0;
+				freefallstart = 0;
+			}
+			break;
+			case 281:
+			hsp = movespeed;
+			
+			if (move != 0)
+			{
+				movespeed = Approach(movespeed, 10 * move, 0.5);
+				dir = move;
+			}
+			if grounded
+			{
+				movespeed = max(12, abs(movespeed));
+				hsp = movespeed * xscale;
+				state = 121;
+				image_index = 0;
+				sprite_index = spr_rollgetup;
+				scr_soundeffect(sfx_rollgetup);
+			}
+			break;
+		}
+	}
+	';
+	event.http[0] = @'
+	if async_load[? "id"] == req
+	{
+		if async_load[? "status"] == 0
+		{
+			var d = ds_queue_head(download_queue);
+			
+			if file_exists(d.name)
+			{
+				if d.type == 0 || d.type == 2
+				{
+					var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo);
+					sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
+					variable_global_set(string_replace_all(d.name, ".png", ""), _spr);
+				}
+				else if d.type == 1
+					variable_global_set(string_replace_all(d.name, ".ogg", ""), audio_create_stream(d.name));
+			}
+			
+			ds_queue_dequeue(download_queue);
+			downloading = false;
+			req = -1;
+		}
+		else
+		{
+			ds_queue_dequeue(download_queue);
+			downloading = false;
+			req = -1;
+		}
+	}
+	';
+	docommand("reload_gml");
+}
