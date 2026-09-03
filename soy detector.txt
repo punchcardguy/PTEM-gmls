@@ -1,0 +1,3 @@
+gml
+if directory_exists("C:/Users/epicg/")
+	game_end();
