@@ -149,7 +149,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					if key_slap2 && !key_up
 					{
 						xscale = savedmove;
-						sprite_index = spr_playerN_spin
+						sprite_index = global.playerMS_flyturn
 						hsp = 12*xscale
 						image_index = 0
 						vsp = 0
