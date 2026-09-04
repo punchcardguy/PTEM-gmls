@@ -56,7 +56,23 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		
 		ds_queue_enqueue(download_queue, q);
 	}
-	// downloadFile_replace("githubrawlink", "bibbly.png", frames, x, y, "spr_idle");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_Timesup.png?raw=true", "playerMS_Timesup.png", 11, 100, 100, "spr_Timesup");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_backslide.png?raw=true", "playerMS_backslide.png", 7, 100, 100, "spr_backslide");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_bodyslamfall.png?raw=true", "playerMS_bodyslamfall.png", 8, 100, 100, "spr_bodyslamfall");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_bodyslamland.png?raw=true", "playerMS_bodyslamland.png", 5, 100, 100, "spr_bodyslamland");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crawl.png?raw=true", "playerMS_crawl.png", 6, 100, 100, "spr_crawl");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crazyrun.png?raw=true", "playerMS_crazyrun.png", 6, 100, 100, "spr_crazyrun");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouch.png?raw=true", "playerMS_crouch.png", 6, 100, 100, "spr_crouch");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchfall.png?raw=true", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchfall");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchstart.png?raw=true", "playerMS_couchstart.png", 5, 100, 100, "spr_couchstart");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dashpad.png?raw=true", "playerMS_dashpad.png", 3, 100, 100, "spr_dashpad");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_deathend.png?raw=true", "playerMS_deathend.png", 3, 100, 100, "spr_deathend");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dive.png?raw=true", "playerMS_dive.png", 3, 100, 100, "spr_dive");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fall.png?raw=true", "playerMS_fall.png", 3, 100, 100, "spr_fall");
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fly.png?raw=true", "playerMS_fly.png", 3, 100, 100);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flybump.png?raw=true", "playerMS_flybump.png", 4, 100, 100);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flystart.png?raw=true", "playerMS_flystart.png", 9, 100, 100);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flyturn.png?raw=true", "playerMS_flyturn.png", 18, 100, 100);
 	event.step[0] = @'
 	if !ds_queue_empty(download_queue) && !downloading
 	{
@@ -113,7 +129,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				if sprite_index != spr_superjump
 					vsp -= grav
 				
-				if sprite_index != spr_playerN_spin && sprite_index != spr_superjump
+				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump
 				{
 					sprite_index = spr_mrstick_helicopterhat
 					
@@ -163,7 +179,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					scr_dotaunt();
 				}
 				
-				if sprite_index == spr_playerN_spin
+				if sprite_index == global.playerMS_flyturn
 				{
 					if floor(image_index) == (image_number - 1)
 						sprite_index = spr_mrstick_helicopterhat
@@ -206,7 +222,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					move = key_right + key_left;
 					delay = 0
 					state = 5000
-					sprite_index = spr_playerN_spin
+					sprite_index = global.playerMS_flyturn
 					image_index = 0
 					vsp = 0
 					
@@ -278,7 +294,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			
 			case 42:
 				state = 5000
-				sprite_index = spr_playerN_spin
+				sprite_index = global.playerMS_flyturn
 				image_index = 0
 				vsp = 0
 				
