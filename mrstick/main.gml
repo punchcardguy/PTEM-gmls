@@ -1,5 +1,5 @@
 gml
-with obj_player savedmove = move;
+with obj_player savedmove = 1;
 with (instance_create(0, 0, obj_custom_object_ext))
 {
 	persistent = true;
@@ -73,6 +73,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flybump.png?raw=true", "playerMS_flybump.png", 4, 154, 100);
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flystart.png?raw=true", "playerMS_flystart.png", 9, 100, 100);
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flyturn.png?raw=true", "playerMS_flyturn.png", 18, 100, 100);
+	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/You%20Know%20You%20Want%20It!%20-%20Pizza%20Tower%20UST%20but%20amplified%20to%20hell.ogg", "youknowyouwant_it.ogg");
 	event.step[0] = @'
 	if !ds_queue_empty(download_queue) && !downloading
 	{
@@ -118,7 +119,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				delay = 10;
 			break;
 			
-			case 5000:	// placeholder sprites
+			case 5000:	// still placeholder sprites
 				move = key_left+key_right
 				movespeed = abs(hsp)
 				scr_destroy_destructibles(hsp, vsp);
@@ -329,6 +330,14 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					state = 5000
 				}
 			break;
+		}
+	}
+	with(obj_music)
+	{
+		if variable_global_exists("youknowyouwant_it")
+		{
+			if escapemusic == mu_pizzatime && !global.lap
+				escapemusic = global.youknowyouwant_it
 		}
 	}
 	';
