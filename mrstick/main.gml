@@ -70,7 +70,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dive.png?raw=true", "playerMS_dive.png", 3, 100, 100, "spr_dive");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fall.png?raw=true", "playerMS_fall.png", 3, 100, 100, "spr_fall");
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fly.png?raw=true", "playerMS_fly.png", 3, 100, 100);
-	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flybump.png?raw=true", "playerMS_flybump.png", 4, 100, 100);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flybump.png?raw=true", "playerMS_flybump.png", 4, 154, 100);
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flystart.png?raw=true", "playerMS_flystart.png", 9, 100, 100);
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flyturn.png?raw=true", "playerMS_flyturn.png", 18, 100, 100);
 	event.step[0] = @'
@@ -111,17 +111,18 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		switch(state)
 		{
 			case 37:
+				image_speed = 0.5
 				state = 5001
 				image_index = 0;
-				sprite_index = spr_mrstick_panic
-				delay = 30;
+				sprite_index = global.playerMS_flystart
+				delay = 10;
 			break;
 			
 			case 5000:	// placeholder sprites
 				move = key_left+key_right
 				movespeed = abs(hsp)
-				image_speed = 0.5
 				scr_destroy_destructibles(hsp, vsp);
+				image_speed = 0.5
 				
 				if (move != 0)
 					savedmove = move;
@@ -131,8 +132,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump
 				{
-					sprite_index = spr_mrstick_helicopterhat
-					
 					if key_down || key_up
 						vsp = Approach(vsp, (key_down + -key_up)*12, 1);
 					else
@@ -167,7 +166,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						create_particle(x, y, 4, 0);
 					}
 					
-					if key_jump2
+					if key_jump
 					{
 						movespeed = hsp
 						state = 306;
@@ -175,14 +174,12 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						if !grounded
 							vsp -= 4
 					}
-					
-					scr_dotaunt();
 				}
 				
 				if sprite_index == global.playerMS_flyturn
 				{
 					if floor(image_index) == (image_number - 1)
-						sprite_index = spr_mrstick_helicopterhat
+						sprite_index = global.playerMS_fly
 					
 					hsp = 12*xscale
 					
@@ -195,7 +192,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				if sprite_index == spr_superjump
 				{
 					if vsp > -5
-						sprite_index = spr_mrstick_helicopterhat
+						sprite_index = global.playerMS_fly
 				}
 				
 				if (scr_solid(x + sign(hsp), y) && !place_meeting(x + sign(hsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x + sign(hsp), y) || place_meeting(x + sign(hsp), y, obj_solid)) && !(place_meeting(x + sign(hsp), y, obj_metalblock)) && !place_meeting(x + sign(hsp), y, obj_destructibles) && !place_meeting(x + sign(hsp), y, obj_climbablewall))
@@ -204,8 +201,14 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					if (_bump)
 					{
 						hsp = -3*sign(prevhsp)
-						sprite_index = spr_mrstick_helicopterhat
+						sprite_index = global.playerMS_flybump
+						image_index = 0;
 					}
+				}
+				
+				if sprite_index == global.playerMS_flybump && floor(image_index) == (image_number - 1)
+				{
+					sprite_index = global.playerMS_fly
 				}
 			break;
 			
@@ -215,7 +218,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				hsp = 3*-xscale
 				
 				if delay == 0
+				{
 					state = 5000
+					sprite_index = global.playerMS_fly
+				}
 				
 				if key_slap2
 				{
@@ -244,6 +250,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				freefallsmash = 12;
 				if vsp < 10
 					vsp = 10
+				hsp = 0
+				movespeed = 0;
 				sprite_index = spr_bodyslamfall
 			break;
 			
