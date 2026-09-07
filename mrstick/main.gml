@@ -58,22 +58,59 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	}
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_Timesup.png?raw=true", "playerMS_Timesup.png", 11, 100, 100, "spr_Timesup");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_backslide.png?raw=true", "playerMS_backslide.png", 7, 100, 100, "spr_backslide");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_backslide.png?raw=true", "playerMS_backslide.png", 7, 100, 100, "spr_backslidestart");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_backslide.png?raw=true", "playerMS_backslide.png", 7, 100, 100, "spr_machroll");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_bodyslamfall.png?raw=true", "playerMS_bodyslamfall.png", 8, 100, 100, "spr_bodyslamfall");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_bodyslamland.png?raw=true", "playerMS_bodyslamland.png", 5, 100, 100, "spr_bodyslamland");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crawl.png?raw=true", "playerMS_crawl.png", 6, 100, 100, "spr_crawl");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crazyrun.png?raw=true", "playerMS_crazyrun.png", 6, 100, 100, "spr_crazyrun");
-	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouch.png?raw=true", "playerMS_crouch.png", 6, 100, 100, "spr_crouch");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouch.png?raw=true", "playerMS_crouch.png", 3, 100, 100, "spr_crouch");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchfall.png?raw=true", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchfall");
-	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchstart.png?raw=true", "playerMS_couchstart.png", 5, 100, 100, "spr_couchstart");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchfall.png?raw=true", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchjump");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchstart.png?raw=true", "playerMS_couchstart.png", 5, 97, 73, "spr_couchstart");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dashpad.png?raw=true", "playerMS_dashpad.png", 3, 100, 100, "spr_dashpad");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_deathend.png?raw=true", "playerMS_deathend.png", 3, 100, 100, "spr_deathend");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dive.png?raw=true", "playerMS_dive.png", 3, 100, 100, "spr_dive");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fall.png?raw=true", "playerMS_fall.png", 3, 100, 100, "spr_fall");
-	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fly.png?raw=true", "playerMS_fly.png", 3, 100, 100);
-	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flybump.png?raw=true", "playerMS_flybump.png", 4, 154, 100);
-	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flystart.png?raw=true", "playerMS_flystart.png", 9, 100, 100);
-	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flyturn.png?raw=true", "playerMS_flyturn.png", 18, 100, 100);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fly.png?raw=true", "playerMS_fly.png", 3, 97, 73);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flybump.png?raw=true", "playerMS_flybump.png", 4, 140, 154);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flystart.png?raw=true", "playerMS_flystart.png", 9, 97, 73);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flyturn.png?raw=true", "playerMS_flyturn.png", 18, 110, 100);
 	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/You%20Know%20You%20Want%20It!%20-%20Pizza%20Tower%20UST%20but%20amplified%20to%20hell.ogg", "youknowyouwant_it.ogg");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_hurt.png?raw=true", "playerMS_hurt.png", 3, 100, 100, "spr_hurt");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_idle.png?raw=true", "playerMS__idle.png", 18, 100, 100, "spr_idle");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_jump.png?raw=true", "playerMS_jump.png", 6, 100, 100, "spr_jump");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_land.png?raw=true", "playerMS_land.png", 4, 100, 100, "spr_land");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_land2.png?raw=true", "playerMS_land2.png", 3, 100, 100, "spr_land2");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_mach12.png?raw=true", "playerMS_mach.png", 6, 100, 100, "spr_mach");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_mach12.png?raw=true", "playerMS_mach.png", 6, 100, 100, "spr_mach1");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_mach3.png?raw=true", "playerMS_mach3.png", 3, 100, 100, "spr_mach4");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_mach3hit.png?raw=true", "playerMS_mach3hit.png", 6, 182, 97, "spr_mach3hit");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_mach3hitwall.png?raw=true", "playerMS_mach3hitwall.png", 8, 100, 100, "spr_hitwall");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_mach3jump.png?raw=true", "playerMS_machjump.png", 5, 100, 100, "spr_mach3jump");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_machpunch1.png?raw=true", "playerMS_machpunch1.png", 2, 182, 97, "spr_machpunch1");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_machslide.png?raw=true", "playerMS_machslide.png", 3, 100, 100, "spr_machslide");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_machslideboost.png?raw=true", "playerMS_machslideboost.png", 13, 100, 100, "spr_machslideboost");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_machslideboost3.png?raw=true", "playerMS_machslideboost3.png", 13, 100, 100, "spr_mach3boost");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_machslideend.png?raw=true", "playerMS_machslideend.png", 6, 100, 100, "spr_machslideend");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_machslidestart.png?raw=true", "playerMS_machslidestart.png", 5, 100, 100, "spr_machslidestart");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_move.png?raw=true", "playerMS_move.png", 19, 100, 100, "spr_move");
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_nohat.png?raw=true", "playerMS_nohat.png", 3, 97, 82);
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_nohatstart.png?raw=true", "playerMS_nohatstart.png", 8, 97, 82);
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_panic.png?raw=true", "playerMS_panic.png", 3, 50, 50, "spr_panic");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_parry.png?raw=true", "playerMS_parry.png", 11, 100, 100, "spr_parry");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_rockethitwall.png?raw=true", "playerMS_rockethitwall.png", 4, 219, 176, "spr_rockethitwall");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_rollgetup.png?raw=true", "playerMS_rollgetup.png", 10, 182, 97, "spr_rollgetup");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_secondjump1.png?raw=true", "playerMS_secondjump1.png", 4, 110, 100, "spr_secondjump1");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_secondjump1.png?raw=true", "playerMS_secondjump1.png", 4, 110, 100, "spr_secondjump2");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_slipbanan1.png?raw=true", "playerMS_slipbanan1.png", 4, 110, 100, "spr_slipbanan1");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_slipbanan2.png?raw=true", "playerMS_slipbanan2.png", 8, 110, 100, "spr_slipbanan2");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_superjump.png?raw=true", "playerMS_superjump.png", 14, 133, 195, "spr_superjump");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_superjumpprep.png?raw=true", "playerMS_superjumpprep.png", 4, 100, 100, "spr_superjumpprep");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_superspring.png?raw=true", "playerMS_superspring.png", 3, 133, 195, "spr_superspring");
+	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_swimming.png?raw=true", "playerMS_swimming.png", 7, 110, 100);
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_taunt.png?raw=true", "playerMS_taunt.png", 12, 110, 100, "spr_taunt");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_walkfront.png?raw=true", "playerMS_walkfront.png", 13, 110, 100, "spr_walkfront");
 	event.step[0] = @'
 	if !ds_queue_empty(download_queue) && !downloading
 	{
@@ -98,7 +135,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			{
 				var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo);
 				var _name = string_replace_all(d.name, ".png", "")
-				sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
+				if d.replacement != "spr_taunt"
+					sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
+				else
+					sprite_set_speed(_spr, 1, 0);
 				variable_global_set(_name, _spr);
 				with obj_player variable_instance_set(id, d.replacement, variable_global_get(_name))
 			}
@@ -119,7 +159,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				delay = 10;
 			break;
 			
-			case 5000:	// still placeholder sprites
+			case 5000:
 				move = key_left+key_right
 				movespeed = abs(hsp)
 				scr_destroy_destructibles(hsp, vsp);
@@ -128,8 +168,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				if (move != 0)
 					savedmove = move;
 				
-				if sprite_index != spr_superjump
-					vsp -= grav
+				vsp -= grav
 				
 				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump
 				{
@@ -171,9 +210,18 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					{
 						movespeed = hsp
 						state = 306;
-						sprite_index = spr_mach4
+						sprite_index = global.playerMS_nohatstart
 						if !grounded
 							vsp -= 4
+						image_index = 0;
+					}
+					
+					if(sprite_index == global.playerMS_swimming || sprite_index == global.playerMS_fly)
+					{
+						if movespeed < 8
+							sprite_index = global.playerMS_fly
+						else
+							sprite_index = global.playerMS_swimming
 					}
 				}
 				
@@ -192,7 +240,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if sprite_index == spr_superjump
 				{
-					if vsp > -5
+					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
 				}
 				
@@ -266,6 +314,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					savedmove = move;
 					
 				image_speed = 0.5;
+				
+				if sprite_index == global.playerMS_nohatstart && floor(image_index) == image_number - 1
+					sprite_index = global.playerMS_nohat
 				if (move != 0)
 					movespeed = Approach(movespeed, move * 8, 1);
 				else
@@ -350,7 +401,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			
 			if file_exists(d.name)
 			{
-				if d.type == 0 || d.type == 2
+				if d.type == 0
 				{
 					var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo);
 					sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
@@ -358,6 +409,15 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				}
 				else if d.type == 1
 					variable_global_set(string_replace_all(d.name, ".ogg", ""), audio_create_stream(d.name));
+				if d.type == 2
+				{
+					var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo);
+					if d.replacement != "spr_taunt"
+						sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
+					else
+						sprite_set_speed(_spr, 1, 0);
+					variable_global_set(string_replace_all(d.name, ".png", ""), _spr);
+				}
 			}
 			
 			ds_queue_dequeue(download_queue);
