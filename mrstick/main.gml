@@ -175,7 +175,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				vsp -= grav
 				
-				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump
+				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump && sprite_index != spr_superjumpprep
 				{
 					if key_down || key_up
 						vsp = Approach(vsp, (key_down + -key_up)*12, 1);
@@ -221,6 +221,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 							vsp -= 4
 						image_index = 0;
 						audio_stop_sound(global.mrstickhat)
+						if key_attack && !scr_solid(x, y - 1) && grounded
+							y -= 1
 					}
 					
 					if(sprite_index == global.playerMS_swimming || sprite_index == global.playerMS_fly)
@@ -254,6 +256,16 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				{
 					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
+					vsp = -30;
+				}
+				
+				if sprite_index = spr_superjumpprep
+				{
+					if floor(image_index) == (image_number - 1)
+					{
+						sprite_index = spr_superjump
+						scr_soundeffect(sfx_superjumprelease)
+					}
 				}
 				
 				if (scr_solid(x + sign(hsp), y) && !place_meeting(x + sign(hsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x + sign(hsp), y) || place_meeting(x + sign(hsp), y, obj_solid)) && !(place_meeting(x + sign(hsp), y, obj_metalblock)) && !place_meeting(x + sign(hsp), y, obj_destructibles) && !place_meeting(x + sign(hsp), y, obj_climbablewall))
@@ -265,6 +277,13 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						sprite_index = global.playerMS_flybump
 						image_index = 0;
 					}
+				}
+				
+				if (scr_solid(x, y + sign(vsp)) && !place_meeting(x + sign(vsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x, y + sign(vsp)) || place_meeting(x, y + sign(vsp), obj_solid)) && !(place_meeting(x, y + sign(vsp), obj_metalblock)) && !place_meeting(x, y + sign(vsp), obj_destructibles) && !place_meeting(x, y + sign(vsp), obj_climbablewall))
+				{
+					vsp = -3*sign(vsp)
+					sprite_index = global.playerMS_flybump
+					image_index = 0;
 				}
 				
 				if sprite_index == global.playerMS_flybump && floor(image_index) == (image_number - 1)
@@ -378,18 +397,15 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			break;
 			
 			case 99:
-				vsp = -35
-				sprite_index = spr_superjump
-				scr_soundeffect(sfx_superjumprelease)
 				state = 5000
 			break;
 			
 			case 80:
-				if place_meeting(x, y+15, obj_solid) && sprite_index = spr_breakdanceuppercut && image_index < 1
+				if scr_solid(x, y+15) && sprite_index = spr_breakdanceuppercut && image_index < 1
 				{
-					vsp = -35
-					sprite_index = spr_superjump
-					scr_soundeffect(sfx_superjumprelease)
+					vsp = 0;
+					audio_stop_sound(sfx_uppercut2)
+					sprite_index = spr_superjumpprep
 					state = 5000
 				}
 			break;
