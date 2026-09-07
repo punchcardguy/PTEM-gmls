@@ -99,7 +99,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_nohatstart.png?raw=true", "playerMS_nohatstart.png", 8, 97, 82);
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_panic.png?raw=true", "playerMS_panic.png", 3, 50, 50, "spr_panic");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_parry.png?raw=true", "playerMS_parry.png", 11, 100, 100, "spr_parry");
-	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_rockethitwall.png?raw=true", "playerMS_rockethitwall.png", 4, 219, 176, "spr_rockethitwall");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_rockethitwall.png?raw=true", "playerMS_rockethitwall.png", 5, 219, 176, "spr_rockethitwall");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_rollgetup.png?raw=true", "playerMS_rollgetup.png", 10, 182, 97, "spr_rollgetup");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_secondjump1.png?raw=true", "playerMS_secondjump1.png", 4, 110, 100, "spr_secondjump1");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_secondjump1.png?raw=true", "playerMS_secondjump1.png", 4, 110, 100, "spr_secondjump2");
@@ -111,6 +111,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_swimming.png?raw=true", "playerMS_swimming.png", 7, 110, 100);
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_taunt.png?raw=true", "playerMS_taunt.png", 12, 110, 100, "spr_taunt");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_walkfront.png?raw=true", "playerMS_walkfront.png", 13, 110, 100, "spr_walkfront");
+	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/mrstickhat.ogg", "mrstickhat.ogg");
 	event.step[0] = @'
 	if !ds_queue_empty(download_queue) && !downloading
 	{
@@ -149,6 +150,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	with(obj_player)
 	{
 		var _delay = 0;
+		
 		switch(state)
 		{
 			case 37:
@@ -163,7 +165,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				move = key_left+key_right
 				movespeed = abs(hsp)
 				scr_destroy_destructibles(hsp, vsp);
-				image_speed = 0.5
+				image_speed = 0.25
+				
+				if !audio_is_playing(global.mrstickhat)
+					scr_soundeffect(global.mrstickhat)
 				
 				if (move != 0)
 					savedmove = move;
@@ -204,6 +209,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						movespeed = hsp;
 						particle_set_scale(4, xscale, 1);
 						create_particle(x, y, 4, 0);
+						audio_stop_sound(global.mrstickhat)
 					}
 					
 					if key_jump
@@ -214,6 +220,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						if !grounded
 							vsp -= 4
 						image_index = 0;
+						audio_stop_sound(global.mrstickhat)
 					}
 					
 					if(sprite_index == global.playerMS_swimming || sprite_index == global.playerMS_fly)
@@ -227,6 +234,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if sprite_index == global.playerMS_flyturn
 				{
+					image_speed = 0.5
+					
 					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
 					
@@ -235,7 +244,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					instakillmove = true;
 					
 					if !grounded && key_down
+					{
+						audio_stop_sound(global.mrstickhat)
 						state = 108;
+					}
 				}
 				
 				if sprite_index == spr_superjump
