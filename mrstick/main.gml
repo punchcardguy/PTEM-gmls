@@ -219,10 +219,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						sprite_index = global.playerMS_nohatstart
 						if !grounded
 							vsp -= 4
+						else
+							vsp = -4
 						image_index = 0;
 						audio_stop_sound(global.mrstickhat)
-						if key_attack && !scr_solid(x, y - 1) && grounded
-							y -= 1
 					}
 					
 					if(sprite_index == global.playerMS_swimming || sprite_index == global.playerMS_fly)
@@ -352,7 +352,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					movespeed = Approach(movespeed, move * 8, 1);
 				else
 					movespeed = Approach(movespeed, 0, 0.5);
-				if grounded
+				if grounded && vsp >= 0
 				{
 					if key_attack
 					{
