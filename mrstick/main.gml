@@ -73,7 +73,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dive.png?raw=true", "playerMS_dive.png", 3, 100, 100, "spr_dive");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fall.png?raw=true", "playerMS_fall.png", 3, 100, 100, "spr_fall");
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fly.png?raw=true", "playerMS_fly.png", 3, 97, 73);
-	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flybump.png?raw=true", "playerMS_flybump.png", 4, 140, 154);
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flystart.png?raw=true", "playerMS_flystart.png", 9, 97, 73);
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_flyturn.png?raw=true", "playerMS_flyturn.png", 18, 110, 100);
 	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/You%20Know%20You%20Want%20It!%20-%20Pizza%20Tower%20UST%20but%20amplified%20to%20hell.ogg", "youknowyouwant_it.ogg");
@@ -178,27 +177,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				vsp -= grav
 				
-				if sprite_index != spr_superjumpprep
-				{
-					if (scr_solid(x + sign(hsp), y) && !place_meeting(x + sign(hsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x + sign(hsp), y) || place_meeting(x + sign(hsp), y, obj_solid)) && !(place_meeting(x + sign(hsp), y, obj_metalblock)) && !place_meeting(x + sign(hsp), y, obj_destructibles) && !place_meeting(x + sign(hsp), y, obj_climbablewall))
-					{
-						var _bump = ledge_bump((vsp >= 0) ? 32 : 22);
-						if (_bump)
-						{
-							hsp = -3*sign(prevhsp)
-							sprite_index = global.playerMS_flybump
-							image_index = 0;
-						}
-					}
-				
-					if (scr_solid(x, y + sign(vsp)) && !place_meeting(x + sign(vsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x, y + sign(vsp)) || place_meeting(x, y + sign(vsp), obj_solid)) && !(place_meeting(x, y + sign(vsp), obj_metalblock)) && !place_meeting(x, y + sign(vsp), obj_destructibles) && !place_meeting(x, y + sign(vsp), obj_climbablewall))
-					{
-						vsp = -3*sign(vsp)
-						sprite_index = global.playerMS_flybump
-						image_index = 0;
-					}
-				}
-				
 				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump && sprite_index != spr_superjumpprep
 				{
 					if key_down || key_up
@@ -294,11 +272,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						scr_soundeffect(sfx_superjumprelease)
 					}
 				} 
-				
-				if sprite_index == global.playerMS_flybump && floor(image_index) == (image_number - 1)
-				{
-					sprite_index = global.playerMS_fly
-				}
 			break;
 			
 			case 5001:
