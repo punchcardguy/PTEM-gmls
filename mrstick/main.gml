@@ -63,12 +63,12 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_bodyslamfall.png?raw=true", "playerMS_bodyslamfall.png", 8, 100, 100, "spr_bodyslamfall");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_bodyslamland.png?raw=true", "playerMS_bodyslamland.png", 5, 100, 100, "spr_bodyslamland");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crawl.png?raw=true", "playerMS_crawl.png", 6, 100, 100, "spr_crawl");
-	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crazyrun.png?raw=true", "playerMS_crazyrun.png", 6, 100, 100, "spr_crazyrun");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crazyrun.png?raw=true", "playerMS_crazyrun.png", 6, 110, 100, "spr_crazyrun");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouch.png?raw=true", "playerMS_crouch.png", 3, 100, 100, "spr_crouch");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchfall.png?raw=true", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchfall");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchfall.png?raw=true", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchjump");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_crouchstart.png?raw=true", "playerMS_couchstart.png", 5, 97, 73, "spr_couchstart");
-	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dashpad.png?raw=true", "playerMS_dashpad.png", 3, 100, 100, "spr_dashpad");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dashpad.png?raw=true", "playerMS_dashpad.png", 3, 100, 100, "spr_dashpadmach");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_deathend.png?raw=true", "playerMS_deathend.png", 3, 100, 100, "spr_deathend");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_dive.png?raw=true", "playerMS_dive.png", 3, 100, 100, "spr_dive");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_fall.png?raw=true", "playerMS_fall.png", 3, 100, 100, "spr_fall");
@@ -98,7 +98,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_nohat.png?raw=true", "playerMS_nohat.png", 3, 97, 82);
 	downloadFile("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_nohatstart.png?raw=true", "playerMS_nohatstart.png", 8, 97, 82);
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_panic.png?raw=true", "playerMS_panic.png", 3, 50, 50, "spr_panic");
-	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_parry.png?raw=true", "playerMS_parry.png", 11, 100, 100, "spr_parry");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_parry.png?raw=true", "playerMS_parry.png", 11, 65, 60, "spr_parry1");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_parry.png?raw=true", "playerMS_parry.png", 11, 100, 100, "spr_parry2");
+	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_parry.png?raw=true", "playerMS_parry.png", 11, 100, 100, "spr_parry3");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_rockethitwall.png?raw=true", "playerMS_rockethitwall.png", 5, 219, 176, "spr_rockethitwall");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_rollgetup.png?raw=true", "playerMS_rollgetup.png", 10, 182, 97, "spr_rollgetup");
 	downloadFile_replace("https://github.com/punchcardguy/PTEM-gmls/blob/main/mrstick/spr_playerMS_secondjump1.png?raw=true", "playerMS_secondjump1.png", 4, 110, 100, "spr_secondjump1");
@@ -149,22 +151,23 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	}
 	with(obj_player)
 	{
-		var _delay = 0;
+		if(place_meeting(x+hsp,y+vsp, obj_ratblock))
+			instance_destroy(instance_place(x+hsp,y+vsp, obj_ratblock));
 		
 		switch(state)
 		{
 			case 37:
-				image_speed = 0.5
+				image_speed = 0.25
 				state = 5001
 				image_index = 0;
 				sprite_index = global.playerMS_flystart
-				delay = 10;
 			break;
 			
 			case 5000:
 				move = key_left+key_right
 				movespeed = abs(hsp)
 				scr_destroy_destructibles(hsp, vsp);
+				scr_destroy_destructibles(xscale, sign(vsp));
 				image_speed = 0.25
 				
 				if !audio_is_playing(global.mrstickhat)
@@ -174,6 +177,27 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					savedmove = move;
 				
 				vsp -= grav
+				
+				if sprite_index != spr_superjumpprep
+				{
+					if (scr_solid(x + sign(hsp), y) && !place_meeting(x + sign(hsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x + sign(hsp), y) || place_meeting(x + sign(hsp), y, obj_solid)) && !(place_meeting(x + sign(hsp), y, obj_metalblock)) && !place_meeting(x + sign(hsp), y, obj_destructibles) && !place_meeting(x + sign(hsp), y, obj_climbablewall))
+					{
+						var _bump = ledge_bump((vsp >= 0) ? 32 : 22);
+						if (_bump)
+						{
+							hsp = -3*sign(prevhsp)
+							sprite_index = global.playerMS_flybump
+							image_index = 0;
+						}
+					}
+				
+					if (scr_solid(x, y + sign(vsp)) && !place_meeting(x + sign(vsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x, y + sign(vsp)) || place_meeting(x, y + sign(vsp), obj_solid)) && !(place_meeting(x, y + sign(vsp), obj_metalblock)) && !place_meeting(x, y + sign(vsp), obj_destructibles) && !place_meeting(x, y + sign(vsp), obj_climbablewall))
+					{
+						vsp = -3*sign(vsp)
+						sprite_index = global.playerMS_flybump
+						image_index = 0;
+					}
+				}
 				
 				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump && sprite_index != spr_superjumpprep
 				{
@@ -197,6 +221,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						hsp = 12*xscale
 						image_index = 0
 						vsp = 0
+						suplexdashsnd = audio_play_sound(sfx_suplexdash, 1, false);
+						sfx_gain(suplexdashsnd);
 					}
 					else if key_slap2
 					{
@@ -223,6 +249,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 							vsp = -4
 						image_index = 0;
 						audio_stop_sound(global.mrstickhat)
+						scr_soundeffect(sfx_fakepepheadthrow)
 					}
 					
 					if(sprite_index == global.playerMS_swimming || sprite_index == global.playerMS_fly)
@@ -266,25 +293,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						sprite_index = spr_superjump
 						scr_soundeffect(sfx_superjumprelease)
 					}
-				}
-				
-				if (scr_solid(x + sign(hsp), y) && !place_meeting(x + sign(hsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x + sign(hsp), y) || place_meeting(x + sign(hsp), y, obj_solid)) && !(place_meeting(x + sign(hsp), y, obj_metalblock)) && !place_meeting(x + sign(hsp), y, obj_destructibles) && !place_meeting(x + sign(hsp), y, obj_climbablewall))
-				{
-					var _bump = ledge_bump((vsp >= 0) ? 32 : 22);
-					if (_bump)
-					{
-						hsp = -3*sign(prevhsp)
-						sprite_index = global.playerMS_flybump
-						image_index = 0;
-					}
-				}
-				
-				if (scr_solid(x, y + sign(vsp)) && !place_meeting(x + sign(vsp), y, obj_mach3solid) && !scr_slope() && (scr_solid_slope(x, y + sign(vsp)) || place_meeting(x, y + sign(vsp), obj_solid)) && !(place_meeting(x, y + sign(vsp), obj_metalblock)) && !place_meeting(x, y + sign(vsp), obj_destructibles) && !place_meeting(x, y + sign(vsp), obj_climbablewall))
-				{
-					vsp = -3*sign(vsp)
-					sprite_index = global.playerMS_flybump
-					image_index = 0;
-				}
+				} 
 				
 				if sprite_index == global.playerMS_flybump && floor(image_index) == (image_number - 1)
 				{
@@ -293,11 +302,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			break;
 			
 			case 5001:
-				delay--;
-				vsp = -6-grav
+				vsp = -wallspeed
 				hsp = 3*-xscale
 				
-				if delay == 0
+				if floor(image_index) == image_number - 1
 				{
 					state = 5000
 					sprite_index = global.playerMS_fly
@@ -367,7 +375,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						if abs(movespeed) < 12
 							movespeed = 12;
 						
-						sprite_index = spr_mach4;
+						sprite_index = spr_dashpadmach;
 						
 						flash = true;
 						
