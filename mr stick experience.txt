@@ -1,0 +1,117 @@
+gml 
+
+with(instance_create(0, 0, obj_custom_object))
+{
+	persistent = 1;
+	image_alpha = 0;
+	moneycollected = [];
+	step_event = @'
+	with(obj_parryeffect)
+	{
+		if sprite_index == spr_pizzablockdead && image_index == 0
+		{
+			var _c = heat_calculate(5)
+			global.collect -= _c
+			
+			array_push(other.moneycollected, 
+			{
+				collected : _c,
+				duration : 0,
+				_x : x,
+				_y : y
+			});
+		}
+		if sprite_index == spr_bigpizzablockdead && image_index == 0
+		{
+			var _c = heat_calculate(50)
+			global.collect -= _c
+			
+			array_push(other.moneycollected, 
+			{
+				collected : _c,
+				duration : 0,
+				_x : x,
+				_y : y
+			});
+		}
+	}
+	
+	for(var len = array_length(moneycollected), i = len - 1; i >= 0; i--)
+	{
+		if moneycollected[i].duration > 0
+		moneycollected[i].duration--;
+		
+		if moneycollected[i].collected > 0 && moneycollected[i].duration <= 0
+		{
+			if moneycollected[i][$ "spr"] == undefined 
+				create_collect(moneycollected[i]._x, moneycollected[i]._y, choose(spr_shroomcollect, spr_tomatocollect, spr_cheesecollect, spr_sausagecollect, spr_pineapplecollect))
+			else
+				create_collect(moneycollected[i]._x, moneycollected[i]._y, moneycollected[i].spr)
+			moneycollected[i].collected--;
+			global.collect += heat_calculate(4)
+			moneycollected[i].duration = 3
+			global.heattime += 10
+			global.heattime = clamp(global.heattime, 0, 60)
+			global.combotime += 10
+			global.combotime = clamp(global.combotime, 0, 60)
+			if audio_is_playing(sfx_collecttopping)
+				audio_stop_sound(sfx_collecttopping)
+			scr_soundeffect(sfx_collecttopping)
+		}
+		else if moneycollected[i].collected <= 0
+			array_delete(moneycollected, i, 1);
+	}
+	
+	with(obj_player)
+	{
+		var _b = instance_place(x + hsp, y + vsp, obj_bigcollect)
+		
+		if (_b && _b.object_index != obj_escapecollectbig || _b && global.panic)
+		{
+			with _b
+			{
+				if !place_meeting(x,y, obj_solid)
+					instance_destroy()
+				else
+					exit;
+				
+				if object_index != obj_escapecollectbig
+				{
+					array_push(obj_custom_object.moneycollected, 
+					{
+						collected : heat_calculate(25),
+						duration : 0,
+						_x : x,
+						_y : y
+					})
+				}
+				else
+				array_push(obj_custom_object.moneycollected, 
+				{
+					collected : heat_calculate(25),
+					duration : 0,
+					_x : x,
+					_y : y,
+					spr : spr_escapecollect
+				})
+			}
+			
+			scr_soundeffect(sfx_collectpizza)
+		}
+	}
+	
+	with (obj_camera)
+		collect_shake = 0
+	';
+	roomstart_event = @'
+	for(var len = array_length(moneycollected), i = len - 1; i >= 0; i--)
+	{
+		if moneycollected[i].collected > 0
+		{
+			global.collect += heat_calculate(4)*moneycollected[i].collected
+			moneycollected[i].collected = 0;
+		}
+	}
+	';
+	docommand("reload_gml")
+} 
