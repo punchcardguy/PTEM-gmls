@@ -5,6 +5,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	persistent = true;
 	image_alpha = 0;
 	download_queue = ds_queue_create();
+	moneycollected = [];
 	
 	enum asset_type_dl
 	{
@@ -58,7 +59,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	}
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_Timesup.png", "playerMS_Timesup.png", 11, 100, 100, "spr_Timesup");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_backslide.png", "playerMS_backslide.png", 7, 100, 100, "spr_backslide");
-	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_backslide.png", "playerMS_backslide.png", 7, 100, 100, "spr_backslidestart");
+	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_backslide.png", "playerMS_backslide.png", 7, 100, 100, "spr_backslideland");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_backslide.png", "playerMS_backslide.png", 7, 100, 100, "spr_machroll");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_bodyslamfall.png", "playerMS_bodyslamfall.png", 8, 100, 100, "spr_bodyslamfall");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_bodyslamland.png", "playerMS_bodyslamland.png", 5, 100, 100, "spr_bodyslamland");
@@ -68,13 +69,14 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_crouchfall.png", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchfall");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_crouchfall.png", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchjump");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_crouchstart.png", "playerMS_couchstart.png", 5, 97, 73, "spr_couchstart");
-	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_dashpad.png", "playerMS_dashpad.png", 3, 100, 100, "spr_dashpadmach");
+	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_dashpad_real.png", "playerMS_dashpad_real.png", 3, 100, 100, "spr_dashpadmach");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_deathend.png", "playerMS_deathend.png", 3, 100, 100, "spr_deathend");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_dive.png", "playerMS_dive.png", 3, 100, 100, "spr_dive");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_fall.png", "playerMS_fall.png", 3, 100, 100, "spr_fall");
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_fly.png", "playerMS_fly.png", 3, 97, 73);
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_flystart.png", "playerMS_flystart.png", 9, 97, 73);
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_flyturn.png", "playerMS_flyturn.png", 18, 110, 100);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_flybump.png", "playerMS_flybumped.png", 4, 140, 154); // please pig
 	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/You%20Know%20You%20Want%20It!%20-%20Pizza%20Tower%20UST%20but%20amplified%20to%20hell.ogg", "youknowyouwant_it.ogg");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_hurt.png", "playerMS_hurt.png", 3, 100, 100, "spr_hurt");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_idle.png", "playerMS__idle.png", 18, 100, 100, "spr_idle");
@@ -98,8 +100,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_nohatstart.png", "playerMS_nohatstart.png", 8, 97, 82);
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_panic.png", "playerMS_panic.png", 3, 50, 50, "spr_panic");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_parry.png", "playerMS_parry.png", 11, 65, 60, "spr_parry1");
-	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_parry.png", "playerMS_parry.png", 11, 100, 100, "spr_parry2");
-	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_parry.png", "playerMS_parry.png", 11, 100, 100, "spr_parry3");
+	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_parry.png", "playerMS_parry.png", 11, 65, 60, "spr_parry2");
+	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_parry.png", "playerMS_parry.png", 11, 65, 60, "spr_parry3");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_rockethitwall.png", "playerMS_rockethitwall.png", 5, 219, 176, "spr_rockethitwall");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_rollgetup.png", "playerMS_rollgetup.png", 10, 182, 97, "spr_rollgetup");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_secondjump1.png", "playerMS_secondjump1.png", 4, 110, 100, "spr_secondjump1");
@@ -113,6 +115,13 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_taunt.png", "playerMS_taunt.png", 12, 110, 100, "spr_taunt");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_walkfront.png", "playerMS_walkfront.png", 13, 110, 100, "spr_walkfront");
 	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/mrstickhat.ogg", "mrstickhat.ogg");
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_coin.png", "coin.png", 1, 0, 0);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_money.png", "money.png", 1, 0, 0);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_money_big.png", "money_big.png", 1, 20, 5);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickchest.png", "stickchest.png", 1, 0, 0);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickchest_destroy.png", "stickchest__destroy.png", 16, 16, 16);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickchest_big.png", "stickchest_big.png", 1, 0, 0);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickchest_big_destroy.png", "stickchest_big_destroy.png", 15, 32, 32);
 	event.step[0] = @'
 	if !ds_queue_empty(download_queue) && !downloading
 	{
@@ -153,11 +162,32 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		if(place_meeting(x+hsp,y+vsp, obj_ratblock))
 			instance_destroy(instance_place(x+hsp,y+vsp, obj_ratblock));
 		
+		var _b = instance_place(x + hsp, y + vsp, obj_bigcollect)
+		
+		if (_b && _b.object_index != obj_escapecollectbig || _b && global.panic)
+		{
+			with _b
+			{
+				if !place_meeting(x,y, obj_solid)
+					instance_destroy()
+				else
+					exit;
+				
+				array_push(obj_custom_object_ext.moneycollected, 
+				{
+					collected : heat_calculate(25),
+					duration : 0,
+					_x : x,
+					_y : y,
+				})
+			}
+		}
+		
 		switch(state)
 		{
 			case 37:
 				image_speed = 0.25
-				state = 5001
+				state = 5000
 				image_index = 0;
 				sprite_index = global.playerMS_flystart
 			break;
@@ -175,9 +205,24 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				if (move != 0)
 					savedmove = move;
 				
+				if (scr_solid(x, y - 1) && sprite_index != global.playerMS_flybumped && !place_meeting(x, y - 1, obj_destructibles))
+				{	
+					vsp = 6;
+					sprite_index = global.playerMS_flybumped;
+					image_index = 0;
+				}
+				
+				if (!scr_slope() && place_meeting(x + hsp, y, obj_solid) && !place_meeting(x + hsp, y, obj_destructibles) && sprite_index != global.playerMS_flybumped && movespeed > 4)
+				{
+					image_index = 0;
+					sprite_index = global.playerMS_flybumped;
+					hsp /= -2
+					movespeed /= 2
+				}
+				
 				vsp -= grav
 				
-				if sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump && sprite_index != spr_superjumpprep
+				if(sprite_index != global.playerMS_flyturn && sprite_index != spr_superjump && sprite_index != spr_superjumpprep && sprite_index != global.playerMS_flystart)
 				{
 					if key_down || key_up
 						vsp = Approach(vsp, (key_down + -key_up)*12, 1);
@@ -185,50 +230,12 @@ with (instance_create(0, 0, obj_custom_object_ext))
 						vsp = Approach(vsp, 0, 0.35);
 					
 					if move != 0
-						hsp = Approach(hsp, move*12, 1);
+						hsp = Approach(hsp, 12*move, 1);
 					else
 						hsp = Approach(hsp, 0, 0.35);
 					
-					if hsp != 0 && movespeed != 0
+					if hsp != 0
 						xscale = sign(hsp)
-					
-					if key_slap2 && !key_up
-					{
-						xscale = savedmove;
-						sprite_index = global.playerMS_flyturn
-						hsp = 12*xscale
-						image_index = 0
-						vsp = 0
-						suplexdashsnd = audio_play_sound(sfx_suplexdash, 1, false);
-						sfx_gain(suplexdashsnd);
-					}
-					else if key_slap2
-					{
-						xscale = 1
-						state = 80;
-						image_index = 0;
-						sprite_index = spr_breakdanceuppercut;
-						sfx_gain(audio_play_sound(sfx_uppercut2, 1, false))
-						vsp = -10;
-						movespeed = hsp;
-						particle_set_scale(4, xscale, 1);
-						create_particle(x, y, 4, 0);
-						audio_stop_sound(global.mrstickhat)
-					}
-					
-					if key_jump
-					{
-						movespeed = hsp
-						state = 306;
-						sprite_index = global.playerMS_nohatstart
-						if !grounded
-							vsp -= 4
-						else
-							vsp = -4
-						image_index = 0;
-						audio_stop_sound(global.mrstickhat)
-						scr_soundeffect(sfx_fakepepheadthrow)
-					}
 					
 					if(sprite_index == global.playerMS_swimming || sprite_index == global.playerMS_fly)
 					{
@@ -239,14 +246,28 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					}
 				}
 				
+				if key_slap2 && sprite_index != global.playerMS_flyturn
+				{
+					xscale = savedmove;
+					sprite_index = global.playerMS_flyturn
+					image_index = 0
+					vsp = 0
+					suplexdashsnd = audio_play_sound(sfx_suplexdash, 1, false);
+					sfx_gain(suplexdashsnd);
+				}
+				
 				if sprite_index == global.playerMS_flyturn
 				{
+					if key_up
+						vsp = Approach(vsp, -key_up*2, 0.35);
+					
 					image_speed = 0.5
 					
 					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
 					
-					hsp = 12*xscale
+					if abs(hsp) < 12
+						hsp = 12*xscale
 					
 					instakillmove = true;
 					
@@ -257,54 +278,61 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					}
 				}
 				
+				if key_jump && sprite_index != spr_superjumpprep
+				{
+					movespeed = hsp
+					state = 306;
+					sprite_index = global.playerMS_nohatstart
+					if !grounded
+						vsp -= 4
+					else
+						vsp = -4
+					image_index = 0;
+					audio_stop_sound(global.mrstickhat)
+					scr_soundeffect(sfx_fakepepheadthrow)
+				}
+				
 				if sprite_index == spr_superjump
 				{
 					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
-					vsp = -30;
+					vsp = -20;
 				}
 				
-				if sprite_index = spr_superjumpprep
+				if sprite_index == spr_superjumpprep
 				{
 					if floor(image_index) == (image_number - 1)
 					{
 						sprite_index = spr_superjump
 						scr_soundeffect(sfx_superjumprelease)
 					}
-				} 
-			break;
-			
-			case 5001:
-				vsp = -wallspeed
-				hsp = 3*-xscale
-				
-				if floor(image_index) == image_number - 1
-				{
-					state = 5000
-					sprite_index = global.playerMS_fly
 				}
 				
-				if key_slap2
+				if sprite_index == global.playerMS_flybumped
 				{
-					move = key_right + key_left;
-					delay = 0
-					state = 5000
-					sprite_index = global.playerMS_flyturn
-					image_index = 0
-					vsp = 0
-					
-					if (move != 0)
-						savedmove = move;
-						
-					xscale = savedmove;
-					
-					if movespeed < 12
-					{
-						hsp = 12*xscale;
-						movespeed = 12;
-					}
+					if floor(image_index) == (image_number - 1)
+						sprite_index = global.playerMS_fly
 				}
 				
+				if sprite_index == global.playerMS_flystart
+				{
+					vsp = -wallspeed
+					hsp = 3*-xscale
+					
+					if floor(image_index) == image_number - 1
+						sprite_index = global.playerMS_fly
+				}
+				
+				var _box = instance_place(x + hsp, y + vsp, obj_boxofpizza)
+				if _box
+				{
+					if _box.image_yscale == -1
+						state = 97;
+					else
+						state = 108;
+					x = _box.x
+					y = _box.y
+				}
 			break;
 			
 			case 108:
@@ -330,27 +358,26 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				if sprite_index == global.playerMS_nohatstart && floor(image_index) == image_number - 1
 					sprite_index = global.playerMS_nohat
 				if (move != 0)
-					movespeed = Approach(movespeed, move * 8, 1);
+					movespeed = Approach(movespeed, move * 12, 0.25);
 				else
-					movespeed = Approach(movespeed, 0, 0.5);
+					movespeed = Approach(movespeed, 0, 0.25);
 				if grounded && vsp >= 0
 				{
 					if key_attack
 					{
-						if move != 0
-							xscale = move;
-						
-						else if savedmove != 0
-							xscale = savedmove;
+						xscale = savedmove;
 						
 						jumpstop = true;
-						state = 121;
+						if !key_down
+							state = 121;
+						else
+							state = 5
 						if abs(movespeed) < 12
 							movespeed = 12;
+						else
+							movespeed = abs(movespeed)
 						
-						sprite_index = spr_dashpadmach;
-						
-						flash = true;
+						sprite_index = state == 5 ? spr_machroll : spr_dashpadmach;
 						
 						with (instance_create(x, y, obj_crazyrunothereffect))
 							image_xscale = other.xscale;
@@ -365,16 +392,17 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			break;
 			
 			case 42:
+				move = key_left + key_right
 				state = 5000
+				flash = 0;
 				sprite_index = global.playerMS_flyturn
 				image_index = 0
 				vsp = 0
+				if move != 0
+					xscale = move;
 				
 				if movespeed < 12
-				{
 					hsp = 12*xscale;
-					movespeed = 12;
-				}
 			break;
 			
 			case 99:
@@ -382,13 +410,12 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			break;
 			
 			case 80:
-				if scr_solid(x, y+15) && sprite_index = spr_breakdanceuppercut && image_index < 1
-				{
-					vsp = 0;
-					audio_stop_sound(sfx_uppercut2)
-					sprite_index = spr_superjumpprep
-					state = 5000
-				}
+				vsp = 0;
+				audio_stop_sound(sfx_uppercut2)
+				sprite_index = spr_superjumpprep
+				state = 5000
+				hsp = 0;
+				movespeed = 0;
 			break;
 		}
 	}
@@ -400,6 +427,65 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				escapemusic = global.youknowyouwant_it
 		}
 	}
+	with(obj_parryeffect)
+	{
+		if sprite_index == spr_pizzablockdead
+		{
+			var _c = heat_calculate(5)
+			global.collect -= _c
+			
+			array_push(other.moneycollected, 
+			{
+				collected : _c,
+				duration : 0,
+				_x : x,
+				_y : y
+			});
+			
+			sprite_index = global.stickchest__destroy
+		}
+		if sprite_index == spr_bigpizzablockdead
+		{
+			var _c = heat_calculate(50)
+			global.collect -= _c
+			
+			array_push(other.moneycollected, 
+			{
+				collected : _c,
+				duration : 0,
+				_x : x - 16,
+				_y : y - 16
+			});
+			
+			sprite_index = global.stickchest_big_destroy
+		}
+	}
+	
+	for(var len = array_length(moneycollected), i = len - 1; i >= 0; i--)
+	{
+		if moneycollected[i].duration > 0
+		moneycollected[i].duration--;
+		
+		if moneycollected[i].collected > 0 && moneycollected[i].duration <= 0
+		{
+			create_collect(moneycollected[i]._x, moneycollected[i]._y, global.money)
+			moneycollected[i].collected--;
+			global.collect += heat_calculate(4)
+			moneycollected[i].duration = 3
+			global.heattime += 10
+			global.heattime = clamp(global.heattime, 0, 60)
+			global.combotime += 10
+			global.combotime = clamp(global.combotime, 0, 60)
+			if audio_is_playing(sfx_collecttopping)
+				audio_stop_sound(sfx_collecttopping)
+			scr_soundeffect(sfx_collecttopping)
+		}
+		else if moneycollected[i].collected <= 0
+			array_delete(moneycollected, i, 1);
+	}
+	
+	with (obj_camera)
+		collect_shake = 0
 	';
 	event.http[0] = @'
 	if async_load[? "id"] == req
@@ -438,6 +524,24 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			ds_queue_dequeue(download_queue);
 			downloading = false;
 			req = -1;
+		}
+	}
+	';
+	event.room_start[0] = @'
+	with(obj_destroyable2)
+		sprite_index = global.stickchest
+	with(obj_destroyable2_big)
+		sprite_index = global.stickchest_big
+	with(obj_collect)
+		sprite_index = global.coin
+	with(obj_bigcollect)
+		sprite_index = global.money_big
+	for(var len = array_length(moneycollected), i = len - 1; i >= 0; i--)
+	{
+		if moneycollected[i].collected > 0
+		{
+			global.collect += heat_calculate(4)*moneycollected[i].collected
+			moneycollected[i].collected = 0;
 		}
 	}
 	';
