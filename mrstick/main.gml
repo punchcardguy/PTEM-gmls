@@ -636,7 +636,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 							if (global.collect > global.arank && (!instance_exists(obj_uparrow)) && scr_solid(x, (y + 1)) && state == 0 && spotlight == 1)
 							{
 								with (instance_create(x, y, obj_uparrow))
-									playerid = other.object_index
+									playerid = obj_player1
 							}
 							
 							if (state == 95 && floor(image_index) == (image_number - 2) && sprite_index != spr_Timesup)
@@ -658,7 +658,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 									}
 								}
 								
-								other.image_index = 0;
 								ds_list_add(global.saveroom, other.id);
 							}
 							
@@ -814,16 +813,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	
 	if(global.cashmode)
 	{
-		with(obj_music)
-		{
-			if(!audio_is_playing(escapemusicID))
-			{
-				music = escapemusicID;
-				audio_stop_sound(musicID);
-				musicID = scr_music(music);
-			}
-		}
-		
 		with(obj_hungrypillar)
 		{
 			ds_list_add(global.saveroom, id)
@@ -854,6 +843,16 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		
 		if room != rm_levelselect && !global.panic && room != timesuproom && room != rank_room
 		{
+			with(obj_music)
+			{
+				if(!audio_is_playing(escapemusicID))
+				{
+					music = escapemusicID;
+					audio_stop_sound(musicID);
+					musicID = scr_music(music);
+				}
+			}
+			
 			global.fill = 4000;
     
 			with (obj_tv)
