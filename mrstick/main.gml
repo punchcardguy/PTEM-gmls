@@ -1,11 +1,17 @@
 gml
-with obj_player savedmove = 1;
+with(obj_player)
+{
+	savedmove = 1;
+	lavatime = 0;
+	sticktransfo = 0;
+}
 with (instance_create(0, 0, obj_custom_object_ext))
 {
 	persistent = true;
 	image_alpha = 0;
 	download_queue = ds_queue_create();
-	moneycollected = [];
+	global.cashmode = 0;
+	fakeobjects = [];
 	
 	enum asset_type_dl
 	{
@@ -42,7 +48,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		ds_queue_enqueue(download_queue, q);
 	}
 	
-	downloadFile_replace = function(_file, _filename, _frames = 1, xorigin = 0, yorigin = 0, _replace) // i coded this using soys downloadfile as a base
+	downloadFile_replace = function(_file, _filename, _frames = 1, xorigin = 0, yorigin = 0, _replace, _spritespeed = undefined) // i coded this using soys downloadfile as a base
 	{
 		var q =
 		{
@@ -53,6 +59,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			yo : yorigin,
 			type : asset_type_dl.replace,
 			replacement : _replace,
+			spritespeed : _spritespeed
 		};
 		
 		ds_queue_enqueue(download_queue, q);
@@ -69,7 +76,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_crouchfall.png", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchfall");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_crouchfall.png", "playerMS_crouchfall.png", 6, 100, 100, "spr_crouchjump");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_crouchstart.png", "playerMS_couchstart.png", 5, 97, 73, "spr_couchstart");
-	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_dashpad_real.png", "playerMS_dashpad_real.png", 3, 100, 100, "spr_dashpadmach");
+	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_dashpad_real_real.png", "playerMS_dashpad_real_real.png", 4, 100, 100, "spr_dashpadmach", 40);
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_deathend.png", "playerMS_deathend.png", 3, 100, 100, "spr_deathend");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_dive.png", "playerMS_dive.png", 3, 100, 100, "spr_dive");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_fall.png", "playerMS_fall.png", 3, 100, 100, "spr_fall");
@@ -77,6 +84,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_flystart.png", "playerMS_flystart.png", 9, 97, 73);
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_flyturn.png", "playerMS_flyturn.png", 18, 110, 100);
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_flybump.png", "playerMS_flybumped.png", 4, 140, 154); // please pig
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_flybump_up.png", "playerMS_flybumped_up.png", 4, 140, 154); // thank you pig
 	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/You%20Know%20You%20Want%20It!%20-%20Pizza%20Tower%20UST%20but%20amplified%20to%20hell.ogg", "youknowyouwant_it.ogg");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_hurt.png", "playerMS_hurt.png", 3, 100, 100, "spr_hurt");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_idle.png", "playerMS__idle.png", 18, 100, 100, "spr_idle");
@@ -87,7 +95,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_mach12.png", "playerMS_mach.png", 6, 100, 100, "spr_mach1");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_mach3.png", "playerMS_mach3.png", 3, 100, 100, "spr_mach4");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_mach3hit.png", "playerMS_mach3hit.png", 6, 182, 97, "spr_mach3hit");
-	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_mach3hitwall.png", "playerMS_mach3hitwall.png", 8, 100, 100, "spr_hitwall");
+	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_mach3hitwall.png", "playerMS_mach3hitwall.png", 8, 100, 100, "spr_hitwall", 30);
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_mach3jump.png", "playerMS_machjump.png", 5, 100, 100, "spr_mach3jump");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_machpunch1.png", "playerMS_machpunch1.png", 2, 182, 97, "spr_machpunch1");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_machslide.png", "playerMS_machslide.png", 3, 100, 100, "spr_machslide");
@@ -112,7 +120,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_superjumpprep.png", "playerMS_superjumpprep.png", 4, 100, 100, "spr_superjumpprep");
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_superspring.png", "playerMS_superspring.png", 3, 133, 195, "spr_superspring");
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_swimming.png", "playerMS_swimming.png", 7, 110, 100);
-	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_taunt.png", "playerMS_taunt.png", 12, 110, 100, "spr_taunt");
+	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_taunt.png", "playerMS_taunt.png", 12, 110, 100, "spr_taunt", 0);
 	downloadFile_replace("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_walkfront.png", "playerMS_walkfront.png", 13, 110, 100, "spr_walkfront");
 	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/mrstickhat.ogg", "mrstickhat.ogg");
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_coin.png", "coin.png", 1, 0, 0);
@@ -122,6 +130,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickchest_destroy.png", "stickchest__destroy.png", 16, 16, 16);
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickchest_big.png", "stickchest_big.png", 1, 0, 0);
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickchest_big_destroy.png", "stickchest_big_destroy.png", 15, 32, 32);
+	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/mach2bump4.ogg", "mach2bump4.ogg");
+	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/sfx_getguitar.ogg", "getguitar.ogg");
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickguitar.png", "stickguitar.png", 1, 50, 50);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickhat.png", "stickhat.png", 5, 25, 25);
 	event.step[0] = @'
 	if !ds_queue_empty(download_queue) && !downloading
 	{
@@ -146,11 +158,12 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			{
 				var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo);
 				var _name = string_replace_all(d.name, ".png", "")
-				if d.replacement != "spr_taunt"
+
+				if d[$ "spritespeed"] == undefined 
 					sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
 				else
-					sprite_set_speed(_spr, 1, 0);
-				variable_global_set(_name, _spr);
+					sprite_set_speed(_spr, d.spritespeed, d.spritespeed);
+				variable_global_set(_name, _spr); 
 				with obj_player variable_instance_set(id, d.replacement, variable_global_get(_name))
 			}
 			
@@ -159,8 +172,31 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	}
 	with(obj_player)
 	{
-		if(place_meeting(x+hsp,y+vsp, obj_ratblock))
+		idle = 69;
+		windingAnim = 0;
+		
+		if room == rm_levelselect || ds_list_empty(global.saveroom)
+			sticktransfo = 0;
+		
+		if(place_meeting(x+hsp,y+vsp, obj_ratblock) && (global.leveltosave != "medieval" || sticktransfo == 1))
 			instance_destroy(instance_place(x+hsp,y+vsp, obj_ratblock));
+		
+		if lavatime > 0
+			lavatime--;
+			
+		if lavatime > 60 && state != 3 && state != 89 && state != 31 && state != 186
+		{
+			if (state != 9)
+				tv_push_prompt_once(tv_create_prompt("This is the fireass transformation text", 2, _spr_tv_fireass, 3), "fireass");
+			state = 9
+			vsp = -20
+			sprite_index = spr_fireass
+			image_index = 0
+			movespeed = hsp
+			if (!audio_is_playing(sfx_scream5))
+				scr_soundeffect(sfx_scream5)
+			lavatime = 0;
+		}
 		
 		var _b = instance_place(x + hsp, y + vsp, obj_bigcollect)
 		
@@ -173,8 +209,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				else
 					exit;
 				
-				array_push(obj_custom_object_ext.moneycollected, 
+				array_push(obj_custom_object_ext.fakeobjects, 
 				{
+					_object : 1,
 					collected : heat_calculate(25),
 					duration : 0,
 					_x : x,
@@ -192,11 +229,23 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				sprite_index = global.playerMS_flystart
 			break;
 			
+			case 92:
+				if image_index == 0 && sprite_index == spr_jump
+					vsp = -15;
+			break;
+			
+			case 84:
+				if tauntstoredsprite = spr_jump // no flying allowed as the flying character
+				{
+					tauntstoredsprite = spr_fall;
+					tauntstoredvsp /= 2;
+				}
+			break;
+			
 			case 5000:
 				move = key_left+key_right
 				movespeed = abs(hsp)
 				scr_destroy_destructibles(hsp, vsp);
-				scr_destroy_destructibles(xscale, sign(vsp));
 				image_speed = 0.25
 				
 				if !audio_is_playing(global.mrstickhat)
@@ -208,16 +257,18 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				if (scr_solid(x, y - 1) && sprite_index != global.playerMS_flybumped && !place_meeting(x, y - 1, obj_destructibles))
 				{	
 					vsp = 6;
-					sprite_index = global.playerMS_flybumped;
+					sprite_index = global.playerMS_flybumped_up;
 					image_index = 0;
+					scr_soundeffect(global.mach2bump4)
 				}
 				
-				if (!scr_slope() && place_meeting(x + hsp, y, obj_solid) && !place_meeting(x + hsp, y, obj_destructibles) && sprite_index != global.playerMS_flybumped && movespeed > 4)
+				if (!scr_slope() && place_meeting(x + hsp, y, obj_solid) && !place_meeting(x + hsp, y, obj_destructibles) && sprite_index != global.playerMS_flybumped_up)
 				{
 					image_index = 0;
 					sprite_index = global.playerMS_flybumped;
 					hsp /= -2
 					movespeed /= 2
+					scr_soundeffect(global.mach2bump4)
 				}
 				
 				vsp -= grav
@@ -280,6 +331,14 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if key_jump && sprite_index != spr_superjumpprep
 				{
+					array_push(other.fakeobjects, 
+					{
+						_object : 4,
+						sprite_index : global.stickhat,
+						image_index : 0,
+						x : x,
+						y : y - 16
+					});
 					movespeed = hsp
 					state = 306;
 					sprite_index = global.playerMS_nohatstart
@@ -308,7 +367,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					}
 				}
 				
-				if sprite_index == global.playerMS_flybumped
+				if sprite_index == global.playerMS_flybumped || sprite_index == global.playerMS_flybumped_up
 				{
 					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
@@ -316,6 +375,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if sprite_index == global.playerMS_flystart
 				{
+					wallspeed = clamp(wallspeed, 6, 12)
 					vsp = -wallspeed
 					hsp = 3*-xscale
 					
@@ -403,6 +463,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if movespeed < 12
 					hsp = 12*xscale;
+				else
+					hsp = movespeed*xscale
 			break;
 			
 			case 99:
@@ -434,8 +496,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			var _c = heat_calculate(5)
 			global.collect -= _c
 			
-			array_push(other.moneycollected, 
+			array_push(other.fakeobjects, 
 			{
+				_object : 1,
 				collected : _c,
 				duration : 0,
 				_x : x,
@@ -449,8 +512,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			var _c = heat_calculate(50)
 			global.collect -= _c
 			
-			array_push(other.moneycollected, 
+			array_push(other.fakeobjects, 
 			{
+				_object : 1,
 				collected : _c,
 				duration : 0,
 				_x : x - 16,
@@ -461,31 +525,188 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		}
 	}
 	
-	for(var len = array_length(moneycollected), i = len - 1; i >= 0; i--)
+	if room == rm_levelselect
 	{
-		if moneycollected[i].duration > 0
-		moneycollected[i].duration--;
-		
-		if moneycollected[i].collected > 0 && moneycollected[i].duration <= 0
+		if obj_player.key_taunt2
 		{
-			create_collect(moneycollected[i]._x, moneycollected[i]._y, global.money)
-			moneycollected[i].collected--;
-			global.collect += heat_calculate(4)
-			moneycollected[i].duration = 3
-			global.heattime += 10
-			global.heattime = clamp(global.heattime, 0, 60)
-			global.combotime += 10
-			global.combotime = clamp(global.combotime, 0, 60)
-			if audio_is_playing(sfx_collecttopping)
-				audio_stop_sound(sfx_collecttopping)
-			scr_soundeffect(sfx_collecttopping)
+			global.cashmode = !global.cashmode
+			instance_destroy(obj_transfotip)
+			instance_create(0, 0, obj_transfotip).text = global.cashmode ? "/{u} Cash mode on /" : "/{u} Cash mode off /";
 		}
-		else if moneycollected[i].collected <= 0
-			array_delete(moneycollected, i, 1);
+	}
+	
+	for(var len = array_length(fakeobjects), i = len - 1; i >= 0; i--)
+	{
+		switch(fakeobjects[i]._object)
+		{
+			case 1: // obj_moneypool
+				if fakeobjects[i].duration > 0
+				fakeobjects[i].duration--;
+				
+				if fakeobjects[i].collected > 0 && fakeobjects[i].duration <= 0
+				{
+					create_collect(fakeobjects[i]._x, fakeobjects[i]._y, global.money)
+					fakeobjects[i].collected--;
+					global.collect += heat_calculate(4)
+					fakeobjects[i].duration = 3
+					global.heattime += 10
+					global.heattime = clamp(global.heattime, 0, 60)
+					global.combotime += 10
+					global.combotime = clamp(global.combotime, 0, 60)
+					if audio_is_playing(sfx_collecttopping)
+						audio_stop_sound(sfx_collecttopping)
+					scr_soundeffect(sfx_collecttopping)
+				}
+				else if fakeobjects[i].collected <= 0
+					array_delete(fakeobjects, i, 1);
+			break;
+			
+			case 2: // lava spelled correctly
+				with fakeobjects[i]
+				{
+					var img_number = sprite_get_number(sprite_index)
+					if image_index != img_number
+						image_index += 0.35
+					else
+						fakeobjects[i].image_index = 0;
+					
+					var bbox_left = x + (sprite_get_bbox_left(sprite_index) - sprite_get_xoffset(sprite_index)) * image_xscale;
+					var bbox_top = y + (sprite_get_bbox_top(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale;
+					var bbox_right = x + (sprite_get_bbox_right(sprite_index) - sprite_get_xoffset(sprite_index)) * image_xscale;
+					var bbox_bottom = y + (sprite_get_bbox_bottom(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale;
+		
+					if (rectangle_in_rectangle(obj_player1.bbox_left, obj_player1.bbox_top, obj_player1.bbox_right, obj_player1.bbox_bottom, bbox_left, bbox_top, bbox_right, bbox_bottom) && obj_player.state != 9)
+						obj_player.lavatime+=2;
+				}
+			break;
+			case 3:
+				with fakeobjects[i]
+				{
+					var bbox_left = x + (sprite_get_bbox_left(sprite_index) - sprite_get_xoffset(sprite_index))
+					var bbox_top = y + (sprite_get_bbox_top(sprite_index) - sprite_get_yoffset(sprite_index))
+					var bbox_right = x + (sprite_get_bbox_right(sprite_index) - sprite_get_xoffset(sprite_index))
+					var bbox_bottom = y + (sprite_get_bbox_bottom(sprite_index) - sprite_get_yoffset(sprite_index))
+				
+					if (rectangle_in_rectangle(obj_player1.bbox_left, obj_player1.bbox_top, obj_player1.bbox_right, obj_player1.bbox_bottom, bbox_left, bbox_top, bbox_right, bbox_bottom))
+					{
+						obj_player.sticktransfo = 1;
+						scr_soundeffect(global.getguitar);
+						instance_create(0, 0, obj_transfotip).text = "/{u} This dosen t work yet, sorry! /";
+						array_delete(other.fakeobjects, i, 1)
+					}
+				}
+			break;
+			
+			case 4:
+				with fakeobjects[i]
+				{
+					var img_number = sprite_get_number(sprite_index)
+					if image_index != img_number
+						image_index += 0.35
+					else
+						fakeobjects[i].image_index = 0;
+					y -= 1;
+					if obj_player.state != 306
+					{
+						instance_create(x,y,obj_genericpoofeffect)
+						array_delete(other.fakeobjects, i, 1);
+					}
+				}
+			break;
+			
+			case 5:
+				with fakeobjects[i]
+				{
+					var bbox_left = x + (sprite_get_bbox_left(sprite_index) - sprite_get_xoffset(sprite_index))
+					var bbox_top = y + (sprite_get_bbox_top(sprite_index) - sprite_get_yoffset(sprite_index))
+					var bbox_right = x + (sprite_get_bbox_right(sprite_index) - sprite_get_xoffset(sprite_index))
+					var bbox_bottom = y + (sprite_get_bbox_bottom(sprite_index) - sprite_get_yoffset(sprite_index))
+					if obj_player1.sprite_index != obj_player1.spr_walkfront
+						image_index = global.collect > global.arank ? 1 : 0;
+					else
+						image_index = 1;
+				
+					if (rectangle_in_rectangle(obj_player1.bbox_left, obj_player1.bbox_top, obj_player1.bbox_right, obj_player1.bbox_bottom, bbox_left, bbox_top, bbox_right, bbox_bottom))
+					{
+						with(obj_player1)
+						{
+							if (floor(image_index) == (image_number - 1) && sprite_index == spr_Timesup)
+								state = 0;
+							
+							if (global.collect > global.arank && (!instance_exists(obj_uparrow)) && scr_solid(x, (y + 1)) && state == 0 && spotlight == 1)
+							{
+								with (instance_create(x, y, obj_uparrow))
+									playerid = other.object_index
+							}
+							
+							if (state == 95 && floor(image_index) == (image_number - 2) && sprite_index != spr_Timesup)
+							{
+								scr_soundeffect(sfx_groundpound);
+								GamepadSetVibration(0, 1, 1, 0.9);
+								GamepadSetVibration(1, 1, 1, 0.9);
+								
+								with (obj_player1)
+								{
+									lastroom = room;
+									sprite_index = spr_Timesup;
+									image_index = 0;
+									
+									with (obj_camera)
+									{
+										shake_mag = 10;
+										shake_mag_acc = 30 / room_speed;
+									}
+								}
+								
+								other.image_index = 0;
+								ds_list_add(global.saveroom, other.id);
+							}
+							
+							if (grounded && x > (other.x - 160) && x < (other.x + 160) && key_up && (state == 0 || state == 104 || state == 121) && global.collect > global.arank)
+							{
+								var ex = x
+								var ey = y
+								var cx = camera_get_view_x(view_camera[0])
+								var cy = camera_get_view_y(view_camera[0])
+								rankpos_x = (ex - cx)
+								rankpos_y = (ey - cy)
+								if (global.timeattack == 1)
+									obj_timeattack.stop = 1
+								targetDoor = "none"
+								obj_camera.alarm[2] = -1
+								var roomname = room_get_name(room)
+								var namestring = string_letters(roomname)
+								scr_savescore(global.leveltosave)
+								if (global.combo > 0)
+								{
+									global.combotime = 0
+									global.combo = 0
+									obj_camera.alarm[4] = -1
+									for (var i = 0; i < global.comboscore; i += 10)
+										create_collect((x + irandom_range(-60, 60)), ((y - 100) + irandom_range(-60, 60)), choose(spr_shroomcollect, spr_tomatocollect, spr_cheesecollect, spr_sausagecollect, spr_pineapplecollect))
+									global.comboscore = 0
+								}
+								if (!instance_exists(obj_endlevelfade))
+									instance_create(x, y, obj_endlevelfade)
+								state = 112
+								sprite_index = spr_lookdoor
+								obj_endlevelfade.alarm[0] = 235
+								image_index = 0
+								global.panic = false
+								global.snickchallenge = 0
+								gamesave_async_save()
+							}
+						}
+					}
+				}
+			break;
+		}
 	}
 	
 	with (obj_camera)
 		collect_shake = 0
+		
+	instance_destroy(obj_grabmarker)
 	';
 	event.http[0] = @'
 	if async_load[? "id"] == req
@@ -507,10 +728,10 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				if d.type == 2
 				{
 					var _spr = sprite_add(d.name, d.frames, false, false, d.xo, d.yo);
-					if d.replacement != "spr_taunt"
+					if d[$ "spritespeed"] == undefined 
 						sprite_set_speed(_spr, 1, spritespeed_framespergameframe);
 					else
-						sprite_set_speed(_spr, 1, 0);
+						sprite_set_speed(_spr, d.spritespeed, d.spritespeed);
 					variable_global_set(string_replace_all(d.name, ".png", ""), _spr);
 				}
 			}
@@ -528,6 +749,24 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	}
 	';
 	event.room_start[0] = @'
+	for(var len = array_length(fakeobjects), i = len - 1; i >= 0; i--)
+	{
+		switch(fakeobjects[i]._object)
+		{
+			case 1:
+				if fakeobjects[i].collected > 0
+				{
+					global.collect += heat_calculate(4)*fakeobjects[i].collected
+					fakeobjects[i].collected = 0;
+				}
+			break;
+			case 2:
+			case 3:
+			case 5:
+				array_delete(fakeobjects, i, 1);
+			break;
+		}
+	}
 	with(obj_destroyable2)
 		sprite_index = global.stickchest
 	with(obj_destroyable2_big)
@@ -536,12 +775,240 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		sprite_index = global.coin
 	with(obj_bigcollect)
 		sprite_index = global.money_big
-	for(var len = array_length(moneycollected), i = len - 1; i >= 0; i--)
+	with(obj_boilingsauce)
 	{
-		if moneycollected[i].collected > 0
+		array_push(other.fakeobjects, 
 		{
-			global.collect += heat_calculate(4)*moneycollected[i].collected
-			moneycollected[i].collected = 0;
+			_object : 2,
+			sprite_index : sprite_index,
+			image_index : 0,
+			x : x,
+			y : y,
+			image_yscale : image_yscale,
+			image_xscale : image_xscale,
+			image_blend : image_blend,
+			image_alpha :image_alpha,
+			image_angle : image_angle
+		})
+		
+		instance_destroy()
+	}
+	with(obj_swordstone)
+	{
+		if obj_player.sticktransfo != 1
+		{
+			array_push(other.fakeobjects, 
+			{
+				_object : 3,
+				sprite_index : global.stickguitar,
+				image_index : 0,
+				x : x,
+				y : y
+			})
+		}
+		
+		instance_destroy()
+	}
+	
+	instance_destroy(obj_shotgunblock)
+	
+	if(global.cashmode)
+	{
+		with(obj_music)
+		{
+			if(!audio_is_playing(escapemusicID))
+			{
+				music = escapemusicID;
+				audio_stop_sound(musicID);
+				musicID = scr_music(music);
+			}
+		}
+		
+		with(obj_hungrypillar)
+		{
+			ds_list_add(global.saveroom, id)
+			instance_destroy()
+		}
+		
+		instance_destroy(obj_minipillar)
+		instance_destroy(obj_reverseminipillar)
+		instance_destroy(obj_lapportal)
+		
+		if ds_list_size(global.baddieroom) >= 20 && global.collect > global.arank
+			ds_list_clear(global.baddieroom)
+		
+		with(obj_exitgate)
+		{
+			array_push(other.fakeobjects, 
+			{
+				_object : 5,
+				sprite_index : sprite_index,
+				image_index : image_index,
+				id : id,
+				x : x,
+				y : y
+			})
+			
+			instance_destroy()
+		}
+		
+		if room != rm_levelselect && !global.panic && room != timesuproom && room != rank_room
+		{
+			global.fill = 4000;
+    
+			with (obj_tv)
+				chunkmax = global.fill;
+			
+			global.panic = true;
+			switch(room)
+			{
+				case entrance_10:
+					global.minutes = 2;
+					global.seconds = 30;
+					break;
+				
+				case medieval_10:
+					global.minutes = 2;
+					global.seconds = 15;
+					break;
+				
+				case ruin_11:
+					global.minutes = 2;
+					global.seconds = 59;
+					break;
+				
+				case dungeon_10:
+					global.minutes = 4;
+					global.seconds = 30;
+					break;
+				
+				case chateau_6:
+					global.minutes = 3;
+					global.seconds = 15;
+					break;
+				
+				case strongcold_1:
+					global.minutes = 4;
+					global.seconds = 0;
+					break;
+				
+				case dragonlair_1:
+					global.minutes = 0;
+					global.seconds = 59;
+					break;
+				
+				case desert_16:
+					global.minutes = 2;
+					global.seconds = 30;
+					break;
+				
+				case graveyard_6:
+					global.minutes = 3;
+					global.seconds = 59;
+					break;
+				
+				case farm_11:
+					global.minutes = 3;
+					global.seconds = 59;
+					break;
+				
+				case pinball_17:
+					global.minutes = 3;
+					global.seconds = 12;
+					break;
+				
+				case beach_13:
+					global.minutes = 3;
+					global.seconds = 30;
+					break;
+				
+				case forest_5:
+					global.minutes = 3;
+					global.seconds = 30;
+					break;
+				
+				case minigolf_8:
+					global.minutes = 7;
+					global.seconds = 30;
+					break;
+				
+				case space_9:
+					global.minutes = 5;
+					global.seconds = 30;
+					break;
+				
+				case sewer_8:
+					global.minutes = 5;
+					global.seconds = 30;
+					break;
+				
+				case city_11:
+					global.minutes = 5;
+					global.seconds = 30;
+					break;
+				
+				case mansion_7:
+					global.minutes = 5;
+					global.seconds = 30;
+					break;
+				
+				case factory_10:
+					global.minutes = 6;
+					global.seconds = 30;
+					break;
+				
+				case freezer_3:
+					global.minutes = 5;
+					global.seconds = 30;
+					break;
+				
+				case war_1:
+					global.minutes = 6;
+					global.seconds = 30;
+					break;
+				
+				case exit_1:
+					global.minutes = 9;
+					global.seconds = 59;
+					break;
+				
+				case kidsparty_lastroom:
+					global.minutes = 3;
+					global.seconds = 30;
+					break;
+				
+				case custom_lvl_room:
+					global.minutes = 2;
+					global.seconds = 15;
+					break;
+				
+				default:
+					global.minutes = 5;
+					global.seconds = 30;
+					break;
+			}
+		}
+	}
+	';
+	event.draw[0] = @'
+	for(var len = array_length(fakeobjects), i = len - 1; i >= 0; i--)
+	{
+		switch(fakeobjects[i]._object)
+		{
+			case 2: // lalva FUCK
+			with fakeobjects[i]
+			{
+				for (var xx = 0; xx < abs(image_xscale); xx++)
+					draw_sprite_ext(sprite_index, image_index, (x + (xx * 32)), y, 1, image_yscale, image_angle, image_blend, image_alpha)
+			}
+
+			break;
+			
+			case 3: // guitar
+			case 4: // hat
+			case 5: // fake exitgate
+				draw_sprite(fakeobjects[i].sprite_index, fakeobjects[i].image_index, fakeobjects[i].x, fakeobjects[i].y)
+			break;
 		}
 	}
 	';
