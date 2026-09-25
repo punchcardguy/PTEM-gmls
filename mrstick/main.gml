@@ -806,19 +806,21 @@ with (instance_create(0, 0, obj_custom_object_ext))
 								if (global.timeattack == 1)
 									obj_timeattack.stop = 1
 								targetDoor = "none"
+								if (global.combo > 0)
+								{
+									global.combotime = 0;
+									global.combo = 0;
+									obj_camera.alarm[4] = -1;
+									
+									for (var i = 0; i < global.comboscore; i += 10)
+										create_collect(x + irandom_range(-60, 60), (y - 100) + irandom_range(-60, 60), global.coin);
+									
+									global.comboscore = 0;
+								}
 								obj_camera.alarm[2] = -1
 								var roomname = room_get_name(room)
 								var namestring = string_letters(roomname)
 								scr_savescore(global.leveltosave)
-								if (global.combo > 0)
-								{
-									global.combotime = 0
-									global.combo = 0
-									obj_camera.alarm[4] = -1
-									for (var i = 0; i < global.comboscore; i += 10)
-										create_collect((x + irandom_range(-60, 60)), ((y - 100) + irandom_range(-60, 60)), choose(spr_shroomcollect, spr_tomatocollect, spr_cheesecollect, spr_sausagecollect, spr_pineapplecollect))
-									global.comboscore = 0
-								}
 								if (!instance_exists(obj_endlevelfade))
 									instance_create(x, y, obj_endlevelfade)
 								state = 112
