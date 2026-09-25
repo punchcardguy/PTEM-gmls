@@ -134,6 +134,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	downloadFileSound("https://github.com/punchcardguy/PTEM-gmls/raw/refs/heads/main/mrstick/sfx_getguitar.ogg", "getguitar.ogg");
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickguitar.png", "stickguitar.png", 1, 50, 50);
 	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_stickhat.png", "stickhat.png", 5, 25, 25);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_guitareffect.png", "guitareffect.png", 7, 50, 50);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_guitar.png", "playerMS_guitar.png", 1, 100, 100);
+	downloadFile("https://raw.githubusercontent.com/punchcardguy/PTEM-gmls/main/mrstick/spr_playerMS_guitarland.png", "playerMS_guitarland.png", 6, 100, 100);
 	event.step[0] = @'
 	if !ds_queue_empty(download_queue) && !downloading
 	{
@@ -178,7 +181,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		if room == rm_levelselect || ds_list_empty(global.saveroom)
 			sticktransfo = 0;
 		
-		if(place_meeting(x+hsp,y+vsp, obj_ratblock) && (global.leveltosave != "medieval" || sticktransfo == 1))
+		if(place_meeting(x+hsp,y+vsp, obj_ratblock) && (global.leveltosave != "medieval" || sticktransfo == 1 && state == 198))
 			instance_destroy(instance_place(x+hsp,y+vsp, obj_ratblock));
 		
 		if lavatime > 0
@@ -245,7 +248,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			case 5000:
 				move = key_left+key_right
 				movespeed = abs(hsp)
-				scr_destroy_destructibles(hsp, vsp);
+				// scr_destroy_destructibles(hsp, vsp);
 				image_speed = 0.25
 				
 				if !audio_is_playing(global.mrstickhat)
@@ -266,7 +269,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				{
 					image_index = 0;
 					sprite_index = global.playerMS_flybumped;
-					hsp /= -2
+					hsp /= -1.5
 					movespeed /= 2
 					scr_soundeffect(global.mach2bump4)
 				}
@@ -355,7 +358,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				{
 					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
+					
 					vsp = -20;
+					instakillmove = true;
 				}
 				
 				if sprite_index == spr_superjumpprep
@@ -452,19 +457,31 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			break;
 			
 			case 42:
-				move = key_left + key_right
-				state = 5000
-				flash = 0;
-				sprite_index = global.playerMS_flyturn
-				image_index = 0
-				vsp = 0
-				if move != 0
-					xscale = move;
-				
-				if movespeed < 12
-					hsp = 12*xscale;
-				else
-					hsp = movespeed*xscale
+				switch(sticktransfo)
+				{
+					case 0:
+						move = key_left + key_right
+						state = 5000
+						flash = 0;
+						sprite_index = global.playerMS_flyturn
+						image_index = 0
+						vsp = 0
+						if move != 0
+							xscale = move;
+						
+						if movespeed < 12
+							hsp = 12*xscale;
+						else
+							hsp = movespeed*xscale
+					break;
+					case 1:
+						movespeed = hsp
+						state = 198;
+						sprite_index = global.playerMS_guitar;
+						image_index = 0;
+						vsp = -16;
+					break;
+				}
 			break;
 			
 			case 99:
@@ -472,13 +489,119 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			break;
 			
 			case 80:
-				vsp = 0;
 				audio_stop_sound(sfx_uppercut2)
+				vsp = 0;
 				sprite_index = spr_superjumpprep
 				state = 5000
 				hsp = 0;
 				movespeed = 0;
 			break;
+			case 198: // wait what fucking state is this
+			if(sprite_index == global.playerMS_guitarland) // dosent matter im reusing doodoo noise code lmfao
+			{
+				hsp = 0;
+				vsp = 0;
+				movespeed = 0;
+				
+				if(image_index >= (image_number - 2))
+					state = 0;
+			}
+			if(sprite_index == global.playerMS_guitar)
+			{
+				instakillmove = true;
+				hsp = movespeed*xscale;
+				move = key_left + key_right;
+				scr_destroy_destructibles(hsp, vsp);
+				
+				var _b = instance_place(x, y + 1, obj_metalblock)
+				
+				if _b
+					instance_destroy(_b)
+				
+				if (vsp > 0)
+					vsp += 0.5;
+				if (move != 0 && movespeed < 12)
+					movespeed = Approach(movespeed, move * 12, 1);
+				else if move == 0
+					movespeed = Approach(movespeed, 0, 0.5);
+				
+				if key_slap2
+				{
+					move = key_left + key_right
+					state = 5000
+					flash = 0;
+					sprite_index = global.playerMS_flyturn
+					image_index = 0
+					vsp = 0
+					if move != 0
+						xscale = move;
+					
+					if movespeed < 12
+						hsp = 12*xscale;
+					else
+						hsp = movespeed*xscale|
+					
+					suplexdashsnd = audio_play_sound(sfx_suplexdash, 1, false);
+					sfx_gain(suplexdashsnd);
+				}
+				
+				if key_jump && vsp < -4
+				{
+					vsp = -3
+					movespeed = 16*xscale
+					scr_soundeffect(sfx_superjumprelease)
+				}
+		
+				if (sprite_index != global.playerMS_guitarland && sprite_index != global.playerMS_guitar && sprite_index != global.playerMS_flyturn)
+				{
+					sprite_index = global.playerMS_guitar;
+					image_index = 0;
+				}
+				
+				 if (grounded && !place_meeting(x, y + vsp, obj_destructibles) && !place_meeting(x, y + 15, obj_destructibles) && !place_meeting(x, y + 15, obj_metalblock) && !place_meeting(x, y + vsp + 5, obj_metalblock) && !place_meeting(x, y + 15, obj_grindrail))
+				{
+					with (instance_create(x + 40, y, obj_parryeffect))
+					{
+						hspeed = 5;
+						sprite_index = global.guitareffect;
+					}
+			
+					with (instance_create(x - 40, y, obj_parryeffect))
+					{
+						image_xscale = -1;
+						hspeed = -5;
+						sprite_index = global.guitareffect;
+					}
+        
+					with (obj_baddie)
+					{
+						if (shakestun && grounded && point_in_camera(x, y, view_camera[0]) && grounded && vsp > 0 && !invincible && groundpound)
+						{
+							state = 138;
+                
+							if (stunned < 60)
+								stunned = 60;
+                
+							vsp = -11;
+							image_xscale *= -1;
+							hsp = 0;
+							momentum = 0;
+						}
+					}
+					with (obj_camera)
+					{
+						shake_mag = 10;
+						shake_mag_acc = 30 / room_speed;
+					}
+        
+					scr_soundeffect(sfx_groundpound)
+					sprite_index = global.playerMS_guitarland;
+					image_index = 0;
+					create_particle(x, y + 3, 14, 0);
+				}
+    
+				scr_dotaunt();
+			}
 		}
 	}
 	with(obj_music)
@@ -522,6 +645,15 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			});
 			
 			sprite_index = global.stickchest_big_destroy
+		}
+		
+		if sprite_index == global.guitareffect
+		{
+			if(place_meeting(x+hspeed,y+vspeed, obj_ratblock))
+				instance_destroy(instance_place(x+hspeed,y+vspeed, obj_ratblock));
+			
+			if(place_meeting(x+hspeed,y+vspeed, obj_baddie))
+				instance_destroy(instance_place(x+hspeed,y+vspeed, obj_baddie));
 		}
 	}
 	
@@ -591,7 +723,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					{
 						obj_player.sticktransfo = 1;
 						scr_soundeffect(global.getguitar);
-						instance_create(0, 0, obj_transfotip).text = "/{u} This dosen t work yet, sorry! /";
+						instance_create(x, y, obj_bumpeffect);
 						array_delete(other.fakeobjects, i, 1)
 					}
 				}
@@ -606,7 +738,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					else
 						fakeobjects[i].image_index = 0;
 					y -= 1;
-					if obj_player.state != 306
+					if obj_player.state != 306 && obj_player.state != 61
 					{
 						instance_create(x,y,obj_genericpoofeffect)
 						array_delete(other.fakeobjects, i, 1);
@@ -704,6 +836,13 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	
 	with (obj_camera)
 		collect_shake = 0
+		
+	with(obj_destructibles)
+	{
+		var _p = obj_player
+		if(_p.state == 5000 && distance_to_point(_p.x + _p.hsp, _p.y + _p.vsp) < 25) // i love doing fuck all
+			instance_destroy()
+	}
 		
 	instance_destroy(obj_grabmarker)
 	';
@@ -811,6 +950,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 	
 	instance_destroy(obj_shotgunblock)
 	
+	if global.leveltosave == "medieval"
+		instance_destroy(obj_priest)
+	
 	if(global.cashmode)
 	{
 		with(obj_hungrypillar)
@@ -825,6 +967,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 		
 		if ds_list_size(global.baddieroom) >= 20 && global.collect > global.arank
 			ds_list_clear(global.baddieroom)
+			
+		instance_destroy(obj_escapespawn)
+		instance_activate_object(obj_baddie)
 		
 		with(obj_exitgate)
 		{
@@ -1009,6 +1154,18 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				draw_sprite(fakeobjects[i].sprite_index, fakeobjects[i].image_index, fakeobjects[i].x, fakeobjects[i].y)
 			break;
 		}
+	}
+	';
+	
+	event.draw_gui[0] = @'
+	if(global.cashmode)
+	{
+		draw_set_halign(fa_middle);
+		draw_set_valign(fa_top);
+		draw_set_font(font1);
+		draw_set_color(c_white);
+		
+		draw_text(75, 500, string(global.collect) + "/" + string(global.arank))
 	}
 	';
 	docommand("reload_gml");
