@@ -654,6 +654,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			
 			if(place_meeting(x+hspeed,y+vspeed, obj_baddie))
 				instance_destroy(instance_place(x+hspeed,y+vspeed, obj_baddie));
+			
+			scr_destroy_destructibles(hspeed, vspeed)
 		}
 	}
 	
