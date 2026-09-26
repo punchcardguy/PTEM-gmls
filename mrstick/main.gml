@@ -249,7 +249,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				move = key_left+key_right
 				movespeed = abs(hsp)
 				// scr_destroy_destructibles(hsp, vsp);
-				image_speed = 0.25
 				
 				if !audio_is_playing(global.mrstickhat)
 					scr_soundeffect(global.mrstickhat)
@@ -294,9 +293,15 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					if(sprite_index == global.playerMS_swimming || sprite_index == global.playerMS_fly)
 					{
 						if movespeed < 8
+						{
 							sprite_index = global.playerMS_fly
+							image_speed = 0.25
+						}
 						else
+						{
 							sprite_index = global.playerMS_swimming
+							image_speed = 0.2
+						}
 					}
 				}
 				
@@ -334,6 +339,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if key_jump && sprite_index != spr_superjumpprep
 				{
+					image_speed = 0.1
 					array_push(other.fakeobjects, 
 					{
 						_object : 4,
@@ -356,6 +362,7 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if sprite_index == spr_superjump
 				{
+					image_speed = 0.2
 					if floor(image_index) == (image_number - 1)
 						sprite_index = global.playerMS_fly
 					
@@ -365,6 +372,11 @@ with (instance_create(0, 0, obj_custom_object_ext))
 				
 				if sprite_index == spr_superjumpprep
 				{
+					image_speed = 0.25
+					
+					if (!place_meeting(x, y, obj_doorblocked) && place_meeting(x, y, obj_door))
+						state = 99
+					
 					if floor(image_index) == (image_number - 1)
 					{
 						sprite_index = spr_superjump
@@ -386,6 +398,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 					
 					if floor(image_index) == image_number - 1
 						sprite_index = global.playerMS_fly
+						
+					image_speed = 0.25
 				}
 				
 				var _box = instance_place(x + hsp, y + vsp, obj_boxofpizza)
@@ -485,7 +499,8 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			break;
 			
 			case 99:
-				state = 5000
+				if(!place_meeting(x+hsp, y, obj_door))
+					state = 5000
 			break;
 			
 			case 80:
@@ -811,10 +826,6 @@ with (instance_create(0, 0, obj_custom_object_ext))
 									global.combotime = 0;
 									global.combo = 0;
 									obj_camera.alarm[4] = -1;
-									
-									for (var i = 0; i < global.comboscore; i += 10)
-										create_collect(x + irandom_range(-60, 60), (y - 100) + irandom_range(-60, 60), global.coin);
-									
 									global.comboscore = 0;
 								}
 								obj_camera.alarm[2] = -1
