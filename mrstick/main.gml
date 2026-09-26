@@ -909,7 +909,9 @@ with (instance_create(0, 0, obj_custom_object_ext))
 			case 1:
 				if fakeobjects[i].collected > 0
 				{
-					global.collect += heat_calculate(4)*fakeobjects[i].collected
+					if room != rm_levelselect && !ds_list_empty(global.saveroom)
+						global.collect += heat_calculate(4)*fakeobjects[i].collected
+					
 					fakeobjects[i].collected = 0;
 				}
 			break;
